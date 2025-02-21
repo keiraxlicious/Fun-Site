@@ -96,25 +96,32 @@
   color: red;
 }
 
+/* Remove explicit color settings from the parent if they're interfering */
 .link-instagram {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.2vw;
+  margin: 0 5px;
+  /* Remove transition on color if set here */
+}
+
+/* Style the icon element */
+.link-instagram i {
+  display: inline-block; /* Needed for background-clip to work */
   font-family: 'Montserrat', sans-serif;
   font-size: 2.2vw;
   color: #969696; /* Default icon color */
   margin: 0 5px;
-  transition: color 0.5s;
-}
-.link-instagram i {
-  display: inline-block; /* Required for background-clip to work */
-  transition: background 0.5s, -webkit-text-fill-color 0.5s;
+  transition: background 0.5s ease, -webkit-text-fill-color 0.5s ease;
 }
 
-/* On hover, apply the gradient */
+/* Apply gradient on hover */
 .link-instagram:hover i {
   background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text; /* For non-WebKit browsers (if supported) */
+  background-clip: text;
 }
+
 
 p {
   user-select: none;
