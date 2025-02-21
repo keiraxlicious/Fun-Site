@@ -113,14 +113,21 @@
   margin: 0 5px;
   transition: background 0.5s ease, -webkit-text-fill-color 0.5s ease;
 }
-
-/* Apply gradient on hover */
 .link-instagram:hover i {
-  background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+  background: linear-gradient(45deg, 
+    #405de6, 
+    #5851db, 
+    #833ab4, 
+    #c13584, 
+    #e1306c, 
+    #fd1d1d);
+  background-size: 200% 200%;  /* Increase this to stretch the gradient */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  transition: background 0.5s ease, -webkit-text-fill-color 0.5s ease;
 }
+
 
 
 p {
