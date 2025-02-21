@@ -43,6 +43,9 @@
   color: #969696;
 }
 
+.link1:hover {
+  color: #5865F2;
+}
 .link2 {
   font-family: 'Montserrat', sans-serif;
   font-size: 2.2vw;
@@ -52,6 +55,9 @@
   color: #969696;
 }
 
+.link2:hover {
+  color: turquoise;
+}
 .link3 {
   font-family: 'Montserrat', sans-serif;
   font-size: 2.2vw;
@@ -61,18 +67,48 @@
   color: #969696;
 }
 
-.link1:hover {
-  color: #5865F2;
-}
-
-.link2:hover {
-  color: turquoise;
-}
-
 .link3:hover {
-  color: white;
+  color: #903DD5;
 }
 
+.link4 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.2vw;
+  color: inherit;
+  margin: 0px 5px 0px 5px;
+  transition: 0.5s;
+  color: #969696;
+}
+
+.link4:hover {
+  color: #103855;
+}
+
+.link5 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.2vw;
+  color: inherit;
+  margin: 0px 5px 0px 5px;
+  transition: 0.5s;
+  color: #969696;
+}
+
+.link5:hover {
+  color: red;
+}
+
+.link6 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.2vw;
+  color: inherit;
+  margin: 0px 5px 0px 5px;
+  transition: 0.5s;
+  color: #969696;
+}
+
+.link6:hover {
+  color: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+}
 p {
   user-select: none;
 }
