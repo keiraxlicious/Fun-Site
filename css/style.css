@@ -34,7 +34,7 @@
   color: #969696;
 }
 
-.link1 {
+.link-discord {
   font-family: 'Montserrat', sans-serif;
   font-size: 2.2vw;
   color: inherit;
@@ -43,10 +43,10 @@
   color: #969696;
 }
 
-.link1:hover {
+.link-discord:hover {
   color: #5865F2;
 }
-.link2 {
+.link-github {
   font-family: 'Montserrat', sans-serif;
   font-size: 2.2vw;
   color: inherit;
@@ -55,10 +55,10 @@
   color: #969696;
 }
 
-.link2:hover {
+.link-github:hover {
   color: turquoise;
 }
-.link3 {
+.link-twitch {
   font-family: 'Montserrat', sans-serif;
   font-size: 2.2vw;
   color: inherit;
@@ -67,11 +67,11 @@
   color: #969696;
 }
 
-.link3:hover {
+.link-twitch:hover {
   color: #903DD5;
 }
 
-.link4 {
+.link-twitter {
   font-family: 'Montserrat', sans-serif;
   font-size: 2.2vw;
   color: inherit;
@@ -80,11 +80,11 @@
   color: #969696;
 }
 
-.link4:hover {
+.link-twitter:hover {
   color: #103855;
 }
 
-.link5 {
+.link-youtube {
   font-family: 'Montserrat', sans-serif;
   font-size: 2.2vw;
   color: inherit;
@@ -93,11 +93,11 @@
   color: #969696;
 }
 
-.link5:hover {
+.link-youtube:hover {
   color: red;
 }
 
-.link6 {
+.link-instagram {
   font-family: 'Montserrat', sans-serif;
   font-size: 2.2vw;
   color: inherit;
@@ -106,7 +106,7 @@
   color: #969696;
 }
 
-.link6:hover {
+.link-instagram:hover {
   color: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
 }
 p {
