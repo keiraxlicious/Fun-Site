@@ -43,10 +43,6 @@
   color: #969696;
 }
 
-/* Target the icon element inside the link */
-.link-discord i {
-  transition: 0.5s;
-}
 .link-discord:hover {
   color: #5865F2;
 }
@@ -57,11 +53,6 @@
   margin: 0px 5px 0px 5px;
   transition: 0.5s;
   color: #969696;
-}
-
-/* Target the icon element inside the link */
-.link-github i {
-  transition: 0.5s;
 }
 .link-github:hover {
   color: turquoise;
@@ -75,10 +66,6 @@
   color: #969696;
 }
 
-/* Target the icon element inside the link */
-.link-twitch i {
-  transition: 0.5s;
-}
 .link-twitch:hover {
   color: #903DD5;
 }
@@ -92,10 +79,6 @@
   color: #969696;
 }
 
-/* Target the icon element inside the link */
-.link-twitter i {
-  transition: 0.5s;
-}
 .link-twitter:hover {
   color: #103855;
 }
@@ -109,10 +92,6 @@
   color: #969696;
 }
 
-/* Target the icon element inside the link */
-.link-youtube i {
-  transition: 0.5s;
-}
 .link-youtube:hover {
   color: red;
 }
@@ -120,22 +99,23 @@
 .link-instagram {
   font-family: 'Montserrat', sans-serif;
   font-size: 2.2vw;
-  color: #969696; /* default icon color */
+  color: #969696; /* Default icon color */
   margin: 0 5px;
-  transition: 0.5s;
+  transition: color 0.5s;
 }
 
-/* Target the icon element inside the link */
+/* Ensure the icon element is inline-block for background-clip to work */
 .link-instagram i {
-  transition: 0.5s;
+  display: inline-block;
+  transition: background 0.5s, -webkit-text-fill-color 0.5s;
 }
 
-/* Apply gradient on hover */
+/* Hover effect: apply gradient fill */
 .link-instagram:hover i {
   background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text;
+  background-clip: text; /* for supporting browsers */
 }
 p {
   user-select: none;
