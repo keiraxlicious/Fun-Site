@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+      "target": "ESNext",
+      "module": "ESNext",
+      "strict": true,
+      "moduleResolution": "node",
+      "baseUrl": ".",
+      "paths": {
+        "@/*": ["./src/*"]
+      },
+      "outDir": "zdist",
+      "lib": ["DOM", "ESNext"]
+    },
+    "include": ["src/**/*"]
+  }

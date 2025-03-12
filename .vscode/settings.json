@@ -1,0 +1,9 @@
+{
+    "editor.experimentalEditContextEnabled": false,
+    "rainbow_csv.enable_context_menu_tail": false,
+    "rainbow_csv.enable_context_menu_head": false,
+    "workbench.editor.enablePreview": false,
+    "tabnine.disableFileRegex": [
+        
+    ]
+}
