@@ -8,8 +8,9 @@
       "paths": {
         "@/*": ["./src/*"]
       },
-      "outDir": "zdist",
+      "outDir": "dist",
       "lib": ["DOM", "ESNext"]
     },
     "include": ["src/**/*"]
   }
+  

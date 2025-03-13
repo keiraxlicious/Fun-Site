@@ -596,15 +596,15 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"jeorp":[function(require,module,exports,__globalThis) {
-var _sidebar = require("@/components/sidebar");
-var _socialButtons = require("@/components/socialButtons");
-var _searchBox = require("@/components/searchBox");
-var _overlays = require("@/components/overlays");
-var _profileCard = require("@/components/profileCard");
-var _overlayPanel = require("@/components/overlayPanel");
-var _particles = require("@/utils/particles");
-var _navigationServices = require("@/services/navigationServices");
-var _analyticServices = require("@/services/analyticServices");
+var _sidebar = require("./components/sidebar");
+var _socialButtons = require("./components/socialButtons");
+var _searchBox = require("./components/searchBox");
+var _particles = require("./utils/particles");
+var _overlays = require("./components/overlays");
+var _profileCard = require("./components/profileCard");
+var _overlayPanel = require("./components/overlayPanel");
+var _navigationServices = require("./services/navigationServices");
+var _analyticServices = require("./services/analyticServices");
 /**
  * Main entry point for the application
  */ document.addEventListener('DOMContentLoaded', ()=>{
@@ -634,6 +634,8 @@ var _analyticServices = require("@/services/analyticServices");
         (0, _socialButtons.initializeSocialButtons)('.social-grid');
         console.log('Initializing search box...');
         (0, _searchBox.initializeSearchBox)('search-box');
+        console.log('Initializing particles...');
+        (0, _particles.initializeParticles)('particles-js');
         console.log('Initializing overlays...');
         (0, _overlays.initializeOverlays)();
         console.log('Initializing Profile Card...');
@@ -671,7 +673,7 @@ var _analyticServices = require("@/services/analyticServices");
     }, 200);
 });
 
-},{"@/components/sidebar":"hweTn","@/components/socialButtons":"eezvA","@/components/searchBox":"7YbSD","@/components/overlays":"1Mc8h","@/components/profileCard":"60OL6","@/components/overlayPanel":"5rZxp","@/utils/particles":"9Y45t","@/services/navigationServices":"3rnt5","@/services/analyticServices":"dt9sa"}],"hweTn":[function(require,module,exports,__globalThis) {
+},{"./components/sidebar":"hweTn","./components/socialButtons":"eezvA","./components/searchBox":"7YbSD","./utils/particles":"9Y45t","./components/overlays":"1Mc8h","./components/profileCard":"60OL6","./components/overlayPanel":"5rZxp","./services/navigationServices":"3rnt5","./services/analyticServices":"dt9sa"}],"hweTn":[function(require,module,exports,__globalThis) {
 /**
  * Initializes the sidebar functionality
  * @param toggleSelector - The selector for the toggle button
@@ -701,10 +703,6 @@ function initializeSidebar(toggleSelector, sidebarSelector) {
         // Toggle the active class to show/hide sidebar
         sidebar.classList.toggle('active');
         console.log(`Sidebar active: ${sidebar.classList.contains('active')}`);
-    });
-    toggleButton.addEventListener('dblclick', (event)=>{
-        sidebar.classList.add('hidden');
-        console.log('Sidebar hidden via double-click');
     });
     // Set up panel navigation
     setupPanels();
@@ -833,7 +831,7 @@ function initializeSocialButtons(containerId) {
     return buttonElement;
 }
 
-},{"./socialButtons.config":"5UcdC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5UcdC":[function(require,module,exports,__globalThis) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./socialButtons.config":"5UcdC"}],"5UcdC":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "SOCIAL_BUTTONS", ()=>SOCIAL_BUTTONS);
@@ -933,15 +931,14 @@ function initializeSearchBox(searchBoxId) {
         // Get last character if there is one
         if (value.length > 0) {
             const lastChar = value.charAt(value.length - 1);
-            target.value = '';
             (0, _searchBoxHelper.createFloatingCharacter)(lastChar, searchBox);
-        // Clear the input to give the illusion that characters float away
-        // Add delay before clearing the value
+            // Clear the input to give the illusion that characters float away
+            target.value = '';
         }
     });
 }
 
-},{"./searchBox.helper":"14ehM","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"14ehM":[function(require,module,exports,__globalThis) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./searchBox.helper":"14ehM"}],"14ehM":[function(require,module,exports,__globalThis) {
 /**
  * Find the index of the first different character between two strings
  * @param str1 - First string
@@ -1003,8 +1000,8 @@ function createFloatingCharacter(character, sourceElement) {
     const viewportHeight = window.innerHeight;
     // Calculate maximum distance based on viewport size
     // Use larger percentages to expand the area
-    const maxDistanceX = Math.min(viewportWidth * 0.9, 600);
-    const maxDistanceY = Math.min(viewportHeight * 0.9, 600);
+    const maxDistanceX = Math.min(viewportWidth * 0.6, 600);
+    const maxDistanceY = Math.min(viewportHeight * 0.6, 600);
     // Generate random direction vector for initial outward motion
     const angle = Math.random() * Math.PI * 2; // Full 360° random direction
     // Scale distance by viewport size for more expansive movement
@@ -1028,8 +1025,8 @@ function createFloatingCharacter(character, sourceElement) {
     // Add some horizontal drift in the final position
     const finalX = midX + (Math.random() * 100 - 50) * distanceScale;
     // Animation timing - longer durations for larger screens
-    const outwardDuration = 200 + Math.random() * 600; // ms
-    const upwardDuration = 500 + Math.random() * 1000; // ms
+    const outwardDuration = 1000 + Math.random() * 600; // ms
+    const upwardDuration = 1500 + Math.random() * 1000; // ms
     // Set animation properties
     charElement.style.transition = `none`;
     // Force a reflow to ensure the initial state is rendered
@@ -1068,7 +1065,120 @@ function createFloatingCharacter(character, sourceElement) {
     }, outwardDuration + upwardDuration + 100);
 }
 
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9Y45t":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "defaultParticleConfig", ()=>defaultParticleConfig);
+/**
+ * Initializes the particles background effect
+ * @param containerId - ID of the container element for particles
+ * @param customConfig - Optional custom particle configuration
+ */ parcelHelpers.export(exports, "initializeParticles", ()=>initializeParticles);
+const defaultParticleConfig = {
+    particles: {
+        number: {
+            value: 80,
+            density: {
+                enable: true,
+                value_area: 800
+            }
+        },
+        color: {
+            value: "#ff9ad2" // Pink based on Apothecary Diaries theme
+        },
+        shape: {
+            type: "circle",
+            stroke: {
+                width: 0,
+                color: "#000000"
+            }
+        },
+        opacity: {
+            value: 0.5,
+            random: true,
+            anim: {
+                enable: true,
+                speed: 1,
+                opacity_min: 0.1,
+                sync: false
+            }
+        },
+        size: {
+            value: 3,
+            random: true,
+            anim: {
+                enable: true,
+                speed: 2,
+                size_min: 0.1,
+                sync: false
+            }
+        },
+        line_linked: {
+            enable: true,
+            distance: 150,
+            color: "#17d8c3",
+            opacity: 0.4,
+            width: 1
+        },
+        move: {
+            enable: true,
+            speed: 2,
+            direction: "none",
+            random: true,
+            straight: false,
+            out_mode: "out",
+            bounce: false
+        }
+    },
+    interactivity: {
+        detect_on: "canvas",
+        events: {
+            onhover: {
+                enable: true,
+                mode: "grab"
+            },
+            onclick: {
+                enable: true,
+                mode: "push"
+            },
+            resize: true
+        },
+        modes: {
+            grab: {
+                distance: 140,
+                line_linked: {
+                    opacity: 1
+                }
+            },
+            push: {
+                particles_nb: 4
+            }
+        }
+    },
+    retina_detect: true
+};
+function initializeParticles(containerId, customConfig) {
+    // Check if particles.js is loaded
+    if (typeof window.particlesJS !== 'function') {
+        console.error('particles.js library not loaded');
+        return;
+    }
+    try {
+        // Merge default config with any custom settings
+        const config = customConfig ? {
+            ...defaultParticleConfig,
+            ...customConfig
+        } : defaultParticleConfig;
+        // Initialize particles
+        window.particlesJS(containerId, config);
+        console.log('Particles initialized successfully');
+    } catch (error) {
+        console.error('Failed to initialize particles:', error);
+    }
+}
+
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1Mc8h":[function(require,module,exports,__globalThis) {
+// src/components/overlays.ts
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "OVERLAY_OPTIONS", ()=>OVERLAY_OPTIONS);
@@ -1085,15 +1195,15 @@ parcelHelpers.export(exports, "OVERLAY_OPTIONS", ()=>OVERLAY_OPTIONS);
 /**
  * Disable any active overlay effects
  */ parcelHelpers.export(exports, "disableOverlays", ()=>disableOverlays);
-var _animations = require("../utils/animations");
 var _types = require("../utils/animations/core/types");
+var _animations = require("../utils/animations");
 const OVERLAY_OPTIONS = [
     {
         id: 'snow',
         name: 'Snowfall',
         particleType: 'snow',
         config: {
-            renderMode: 'SVG',
+            renderMode: 'CANVAS',
             color: '#FFFFFF',
             maxParticles: 100,
             sizeRange: [
@@ -1104,8 +1214,8 @@ const OVERLAY_OPTIONS = [
                 1,
                 3
             ],
-            assetDirectory: '/assets/svgs/overlays/snow/',
-            fallbackImage: '/assets/images/overlays/snow/' // Fallback if directory loading fails
+            svgPath: '/assets/snowflake.svg',
+            imagePath: '/assets/snowflake.png'
         },
         path: '/snow.html'
     },
@@ -1129,8 +1239,8 @@ const OVERLAY_OPTIONS = [
                 1,
                 3
             ],
-            assetDirectory: '/assets/svgs/overlays/rain/',
-            fallbackImage: '/assets/images/overlays/rain/' // Fallback if directory loading fails
+            svgPath: '/assets/raindrop.svg',
+            imagePath: '/assets/raindrop.png'
         },
         path: '/rain.html'
     },
@@ -1162,8 +1272,8 @@ const OVERLAY_OPTIONS = [
                 '#CD853F',
                 '#F4A460'
             ],
-            assetDirectory: '/assets/svgs/overlays/leaves/',
-            fallbackImage: '/assets/images/overlays/leaves/' // Fallback if directory loading fails
+            svgPath: '/assets/leaf.svg',
+            imagePath: '/assets/leaf.png'
         },
         path: '/leaves.html'
     },
@@ -1187,8 +1297,16 @@ const OVERLAY_OPTIONS = [
                 -1,
                 1
             ],
-            assetDirectory: '/assets/svgs/overlays/sakura/',
-            fallbackImage: '/assets/images/overlays/sakura/' // Fallback if directory loading fails
+            svgPath: [
+                '/assets/sakura1.svg',
+                '/assets/sakura2.svg',
+                '/assets/sakura3.svg',
+                '/assets/sakura4.svg'
+            ],
+            imagePath: [
+                '/assets/sakura1.png',
+                '/assets/sakura2.png'
+            ]
         },
         path: '/sakura.html'
     },
@@ -1212,8 +1330,8 @@ const OVERLAY_OPTIONS = [
                 0.8,
                 1.2
             ],
-            assetDirectory: '/assets/svgs/overlays/hearts/',
-            fallbackImage: '/assets/images/overlays/hearts/' // Fallback if directory loading fails
+            svgPath: '/assets/heart.svg',
+            imagePath: '/assets/heart.png'
         },
         path: '/hearts.html'
     },
@@ -1238,8 +1356,8 @@ const OVERLAY_OPTIONS = [
                 '#FFFACD',
                 '#FFE4B5'
             ],
-            assetDirectory: '/assets/svgs/overlays/stars/',
-            fallbackImage: '/assets/images/overlays/stars/' // Fallback if directory loading fails
+            svgPath: '/assets/star.svg',
+            imagePath: '/assets/star.png'
         },
         path: '/stars.html'
     }
@@ -1312,59 +1430,18 @@ function applyOverlayEffect(overlayId, containerId = 'magic-canvas') {
  * @param config - Overlay configuration
  * @returns Particle options object
  */ function convertConfigToParticleOptions(config) {
-    // Create the options object with all required properties
     const options = {
-        count: config.maxParticles,
-        speed: {
-            min: 1,
-            max: 3
-        },
-        size: {
-            min: 5,
-            max: 20
-        },
-        opacity: {
-            min: 0.6,
-            max: 1.0
-        },
-        fadeThreshold: 0.8,
-        fadeSpeed: 0.02,
-        assetPaths: []
+        count: config.maxParticles
     };
     // Add asset paths if available
-    // if (config.svgPath || config.imagePath) {
-    //     options.assetPaths = [];
-    //     // Support arrays of paths
-    //     if (typeof config.svgPath === 'string') {
-    //         options.assetPaths.push(config.svgPath);
-    //     } else if (Array.isArray(config.svgPath)) {
-    //         options.assetPaths.push(...config.svgPath);
-    //     }
-    //     if (typeof config.imagePath === 'string') {
-    //         options.assetPaths.push(config.imagePath);
-    //     } else if (Array.isArray(config.imagePath)) {
-    //         options.assetPaths.push(...config.imagePath);
-    //     }
-    // }
-    // Handle asset paths and directories
-    if (config.assetDirectory) // If a directory is specified, add it as a single path
-    // The asset loader will handle scanning the directory
-    options.assetPaths = [
-        config.assetDirectory
-    ];
-    else {
-        // Handle individual paths
-        if (config.svgPath) {
-            if (Array.isArray(config.svgPath)) options.assetPaths.push(...config.svgPath);
-            else options.assetPaths.push(config.svgPath);
-        }
-        if (config.imagePath) {
-            if (Array.isArray(config.imagePath)) options.assetPaths.push(...config.imagePath);
-            else options.assetPaths.push(config.imagePath);
-        }
+    if (config.svgPath || config.imagePath) {
+        options.assetPaths = [];
+        // Support arrays of paths
+        if (typeof config.svgPath === 'string') options.assetPaths.push(config.svgPath);
+        else if (Array.isArray(config.svgPath)) options.assetPaths.push("/assets/svgs/overlays/snow/");
+        if (typeof config.imagePath === 'string') options.assetPaths.push(config.imagePath);
+        else if (Array.isArray(config.imagePath)) options.assetPaths.push(...config.imagePath);
     }
-    // Add fallback image if specified
-    if (config.fallbackImage && options.assetPaths.length === 0) options.assetPaths.push(config.fallbackImage);
     // Add size range if available
     const sizeConfig = config;
     if (sizeConfig.sizeRange) options.size = {
@@ -1397,18 +1474,6 @@ function applyOverlayEffect(overlayId, containerId = 'magic-canvas') {
         min: sizeConfig.twinkleRange[0],
         max: sizeConfig.twinkleRange[1]
     };
-    // Map render mode
-    if (config.renderMode) switch(config.renderMode){
-        case 'SVG':
-            options.renderMode = (0, _types.AnimationRenderMode).SVG;
-            break;
-        case 'CANVAS':
-            options.renderMode = (0, _types.AnimationRenderMode).CANVAS;
-            break;
-        case 'DOM':
-            options.renderMode = (0, _types.AnimationRenderMode).IMAGE;
-            break;
-    }
     return options;
 }
 function disableOverlays() {
@@ -1427,7 +1492,22 @@ function disableOverlays() {
     }
 }
 
-},{"../utils/animations":"9n58n","../utils/animations/core/types":"fBWll","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9n58n":[function(require,module,exports,__globalThis) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../utils/animations/core/types":"fBWll","../utils/animations":"9n58n"}],"fBWll":[function(require,module,exports,__globalThis) {
+// src/utils/animations/core/types.ts
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ParticleType", ()=>ParticleType);
+var ParticleType = /*#__PURE__*/ function(ParticleType) {
+    ParticleType["SNOW"] = "snow";
+    ParticleType["RAIN"] = "rain";
+    ParticleType["SAKURA"] = "sakura";
+    ParticleType["LEAF"] = "leaf";
+    ParticleType["HEART"] = "heart";
+    ParticleType["STAR"] = "star";
+    return ParticleType;
+}({});
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9n58n":[function(require,module,exports,__globalThis) {
 // src/utils/animations/index.ts
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -1597,24 +1677,22 @@ async function initializeOverlays(containerId, type, options = {}) {
 // src/utils/animations/particle-factory.ts
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-// import { StarParticle } from './particles/star-particle';
-parcelHelpers.export(exports, "createParticleAnimation", ()=>createParticleAnimation);
 /**
- * Initialize particles system with the specified configuration
+ * Creates a particle animation system of the specified type
  * @param containerId - ID of the container element
  * @param type - Type of particle effect to create
- * @param options - Configuration options for particles
- * @returns Promise that resolves when animation has started
- */ parcelHelpers.export(exports, "initParticles", ()=>initParticles);
+ * @param options - Configuration options for the effect
+ * @returns Promise resolving to a configured ParticleEngine
+ */ parcelHelpers.export(exports, "createParticleAnimation", ()=>createParticleAnimation);
 var _particleEngine = require("./core/particle-engine");
 var _canvasDrawer = require("./core/canvas-drawer");
 var _svgDrawer = require("./core/svg-drawer");
 var _types = require("./core/types");
-var _snowParticle = require("./particles/snow-particle");
 var _sakuraParticle = require("./particles/sakura-particle");
 var _rainParticle = require("./particles/rain-particle");
 var _leafParticle = require("./particles/leaf-particle");
 var _heartParticle = require("./particles/heart-particle");
+var _starParticle = require("./particles/star-particle");
 async function createParticleAnimation(containerId, type, options) {
     // Set default options
     const defaultOptions = {
@@ -1635,24 +1713,21 @@ async function createParticleAnimation(containerId, type, options) {
         fadeSpeed: 0.02,
         wind: 0,
         gravity: 0.5,
-        interactWithElements: false,
-        renderMode: (0, _types.AnimationRenderMode).CANVAS
+        interactWithElements: false
     };
     // Merge defaults with provided options
     const mergedOptions = {
         ...defaultOptions,
         ...options
     };
-    // Create drawer based on render mode
+    // Create drawer based on asset type
     let drawer;
-    if (mergedOptions.renderMode === (0, _types.AnimationRenderMode).SVG && mergedOptions.assetPaths?.length) drawer = new (0, _svgDrawer.SVGDrawer)(containerId, mergedOptions.assetPaths);
+    const usesSvg = mergedOptions.assetPaths?.some((path)=>path.toLowerCase().endsWith('.svg'));
+    if (usesSvg) drawer = new (0, _svgDrawer.SVGDrawer)(containerId, mergedOptions.assetPaths || []);
     else drawer = new (0, _canvasDrawer.CanvasDrawer)(containerId, type, mergedOptions.assetPaths || []);
     // Create appropriate factory function based on particle type
     let particleFactory;
     switch(type){
-        case (0, _types.ParticleType).SNOW:
-            particleFactory = (0, _snowParticle.SnowParticle).create;
-            break;
         case (0, _types.ParticleType).SAKURA:
             particleFactory = (0, _sakuraParticle.SakuraParticle).create;
             break;
@@ -1665,9 +1740,9 @@ async function createParticleAnimation(containerId, type, options) {
         case (0, _types.ParticleType).HEART:
             particleFactory = (0, _heartParticle.HeartParticle).create;
             break;
-        // case ParticleType.STAR:
-        //   particleFactory = StarParticle.create;
-        //   break;
+        case (0, _types.ParticleType).STAR:
+            particleFactory = (0, _starParticle.StarParticle).create;
+            break;
         default:
             throw new Error(`Unsupported particle type: ${type}`);
     }
@@ -1676,66 +1751,8 @@ async function createParticleAnimation(containerId, type, options) {
     await engine.initialize();
     return engine;
 }
-async function initParticles(containerId, type, options) {
-    try {
-        const engine = await createParticleAnimation(containerId, type, options);
-        engine.start();
-        // Store the engine globally for later access (cleanup, etc.)
-        const engineKey = `particleEngine_${containerId}_${type}`;
-        window[engineKey] = engine;
-        return;
-    } catch (error) {
-        console.error('Failed to initialize particles:', error);
-        throw error;
-    }
-}
-/**
- * Converts animation options from overlay config to particle options
- * @param config - The animation options from overlay config
- * @returns Standardized ParticleOptions
- */ function mapAnimationOptionsToParticleOptions(config) {
-    // Default options
-    const options = {
-        count: 100,
-        speed: {
-            min: 1,
-            max: 3
-        },
-        size: {
-            min: 5,
-            max: 20
-        },
-        opacity: {
-            min: 0.6,
-            max: 1.0
-        },
-        fadeThreshold: 0.8,
-        fadeSpeed: 0.02,
-        wind: 0,
-        gravity: 0.5,
-        interactWithElements: false
-    };
-    // Map specific config properties
-    if (config) {
-        if (config.maxParticles) options.count = config.maxParticles;
-        if (config.sizeRange) options.size = {
-            min: config.sizeRange[0],
-            max: config.sizeRange[1]
-        };
-        if (config.fallSpeedRange) options.speed = {
-            min: config.fallSpeedRange[0],
-            max: config.fallSpeedRange[1]
-        };
-        if (config.color) options.colors = [
-            config.color
-        ];
-        if (config.svgPath) options.assetPaths = config.svgPath;
-        if (config.renderMode) options.renderMode = config.renderMode;
-    }
-    return options;
-}
 
-},{"./core/particle-engine":"iSift","./core/canvas-drawer":"3Il3d","./core/svg-drawer":"3lQZf","./core/types":"fBWll","./particles/snow-particle":"j1tiZ","./particles/sakura-particle":"8mYKt","./particles/rain-particle":"Tekby","./particles/leaf-particle":"dX9Hi","./particles/heart-particle":"87uY3","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iSift":[function(require,module,exports,__globalThis) {
+},{"./core/particle-engine":"iSift","./core/canvas-drawer":"3Il3d","./core/svg-drawer":"3lQZf","./core/types":"fBWll","./particles/sakura-particle":"8mYKt","./particles/rain-particle":"Tekby","./particles/leaf-particle":"dX9Hi","./particles/heart-particle":"87uY3","./particles/star-particle":"bo4bl","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iSift":[function(require,module,exports,__globalThis) {
 // src/utils/animations/core/particle-engine.ts
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -2120,34 +2137,11 @@ class CanvasDrawer {
     }
 }
 
-},{"./types":"fBWll","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fBWll":[function(require,module,exports,__globalThis) {
-// src/utils/animations/core/types.ts
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "AnimationRenderMode", ()=>AnimationRenderMode);
-parcelHelpers.export(exports, "ParticleType", ()=>ParticleType);
-var AnimationRenderMode = /*#__PURE__*/ function(AnimationRenderMode) {
-    AnimationRenderMode["CANVAS"] = "CANVAS";
-    AnimationRenderMode["SVG"] = "SVG";
-    AnimationRenderMode["IMAGE"] = "IMAGE";
-    return AnimationRenderMode;
-}({});
-var ParticleType = /*#__PURE__*/ function(ParticleType) {
-    ParticleType["SNOW"] = "snow";
-    ParticleType["RAIN"] = "rain";
-    ParticleType["SAKURA"] = "sakura";
-    ParticleType["LEAF"] = "leaf";
-    ParticleType["HEART"] = "heart";
-    ParticleType["STAR"] = "star";
-    return ParticleType;
-}({});
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3lQZf":[function(require,module,exports,__globalThis) {
+},{"./types":"fBWll","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3lQZf":[function(require,module,exports,__globalThis) {
 // src/utils/animations/core/svg-drawer.ts
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "SVGDrawer", ()=>SVGDrawer);
-var _assetLoader = require("./asset-loader");
 class SVGDrawer {
     /**
    * Creates an SVG drawer for rendering SVG-based particles
@@ -2175,83 +2169,28 @@ class SVGDrawer {
         this.containerHeight = rect.height;
     }
     /**
- * Initialize by loading all SVG templates
- */ async initialize() {
+   * Initialize by loading all SVG templates
+   */ async initialize() {
         try {
-            let filesToLoad = [];
-            // Check if we have a directory
-            if (this.svgPaths.length === 1 && this.svgPaths[0].endsWith('/')) {
-                // Load from directory
-                filesToLoad = await (0, _assetLoader.AssetLoader).loadFromDirectory(this.svgPaths[0], '.svg');
-                console.log(`Found ${filesToLoad.length} SVGs in directory ${this.svgPaths[0]}`);
-            } else // Use provided paths
-            filesToLoad = this.svgPaths;
-            // If no files found, generate placeholders
-            if (filesToLoad.length === 0) {
-                console.warn('No SVG files found. Generating placeholders...');
-                this.createFallbackSVG();
-                return;
-            }
-            // Try to load each SVG file
-            let successCount = 0;
-            for (const path of filesToLoad)try {
-                const svgText = await (0, _assetLoader.AssetLoader).loadSVGFile(path);
-                if (!svgText) continue;
-                // Process the SVG content
-                const svgElement = this.parseSVG(svgText);
-                if (svgElement) {
-                    this.svgTemplates.push(svgElement);
-                    successCount++;
-                }
-            } catch (error) {
-                console.warn(`Error loading SVG: ${path}`, error);
-            }
-            console.log(`Successfully loaded ${successCount} of ${filesToLoad.length} SVG templates`);
-            if (this.svgTemplates.length === 0) {
-                console.warn('No valid SVG templates were loaded. Creating fallback shapes.');
-                this.createFallbackSVG();
-            }
+            // Load all SVG templates concurrently
+            const loadPromises = this.svgPaths.map(async (path)=>{
+                const response = await fetch(path);
+                if (!response.ok) throw new Error(`Failed to load SVG: ${path}`);
+                const svgText = await response.text();
+                const parser = new DOMParser();
+                const svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
+                // Check for parsing errors
+                const parserError = svgDoc.querySelector('parsererror');
+                if (parserError) throw new Error(`SVG parsing error: ${parserError.textContent}`);
+                const svgElement = svgDoc.documentElement;
+                // Explicitly check if it's an SVG element to avoid type errors
+                if (!(svgElement instanceof SVGElement)) throw new Error(`Parsed document is not a valid SVG: ${path}`);
+                return svgElement;
+            });
+            this.svgTemplates = await Promise.all(loadPromises);
         } catch (error) {
             console.error('SVG initialization error:', error);
-            this.createFallbackSVG();
-        }
-    }
-    /**
- * Parse an SVG string into an SVG element
- */ parseSVG(svgText) {
-        try {
-            // Clean up the SVG content
-            let cleanedSvg = svgText.trim();
-            // Remove XML declaration if present
-            cleanedSvg = cleanedSvg.replace(/<\?xml[^>]*>\s*/i, '');
-            // Remove DOCTYPE if present
-            cleanedSvg = cleanedSvg.replace(/<!DOCTYPE[^>]*>\s*/i, '');
-            // Make sure we have an SVG tag
-            if (!cleanedSvg.includes('<svg')) return null;
-            // Parse the SVG
-            const parser = new DOMParser();
-            const svgDoc = parser.parseFromString(cleanedSvg, 'image/svg+xml');
-            // Check for parsing errors
-            const parserError = svgDoc.querySelector('parsererror');
-            if (parserError) {
-                console.warn('SVG parsing error:', parserError.textContent);
-                return null;
-            }
-            const svgElement = svgDoc.documentElement;
-            if (!(svgElement instanceof SVGElement)) return null;
-            // Ensure the SVG has proper viewBox
-            if (!svgElement.getAttribute('viewBox')) {
-                // Try to get width and height
-                const width = svgElement.getAttribute('width') || '100';
-                const height = svgElement.getAttribute('height') || '100';
-                svgElement.setAttribute('viewBox', `0 0 ${width} ${height}`);
-            }
-            // Assign a unique ID to prevent conflicts
-            svgElement.id = `svg-${Math.random().toString(36).substring(2, 10)}`;
-            return svgElement;
-        } catch (error) {
-            console.warn('Error parsing SVG:', error);
-            return null;
+            throw error;
         }
     }
     /**
@@ -2300,304 +2239,81 @@ class SVGDrawer {
         this.clear();
         if (this.svgContainer.parentNode) this.svgContainer.parentNode.removeChild(this.svgContainer);
     }
-    createFallbackSVG() {
-        // Create a basic snowflake SVG as fallback
-        const fallbackSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        fallbackSvg.setAttribute('viewBox', '0 0 100 100');
-        fallbackSvg.setAttribute('width', '100');
-        fallbackSvg.setAttribute('height', '100');
-        // Create a simple snowflake shape (six-pointed star)
-        for(let i = 0; i < 6; i++){
-            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-            const angle = Math.PI / 3 * i;
-            line.setAttribute('x1', '50');
-            line.setAttribute('y1', '50');
-            line.setAttribute('x2', (50 + 40 * Math.cos(angle)).toString());
-            line.setAttribute('y2', (50 + 40 * Math.sin(angle)).toString());
-            line.setAttribute('stroke', 'white');
-            line.setAttribute('stroke-width', '4');
-            fallbackSvg.appendChild(line);
-            // Add smaller lines (branches)
-            const branch1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-            const branch2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-            const branchPoint = {
-                x: 50 + 25 * Math.cos(angle),
-                y: 50 + 25 * Math.sin(angle)
-            };
-            branch1.setAttribute('x1', branchPoint.x.toString());
-            branch1.setAttribute('y1', branchPoint.y.toString());
-            branch1.setAttribute('x2', (branchPoint.x + 15 * Math.cos(angle + Math.PI / 4)).toString());
-            branch1.setAttribute('y2', (branchPoint.y + 15 * Math.sin(angle + Math.PI / 4)).toString());
-            branch2.setAttribute('x1', branchPoint.x.toString());
-            branch2.setAttribute('y1', branchPoint.y.toString());
-            branch2.setAttribute('x2', (branchPoint.x + 15 * Math.cos(angle - Math.PI / 4)).toString());
-            branch2.setAttribute('y2', (branchPoint.y + 15 * Math.sin(angle - Math.PI / 4)).toString());
-            branch1.setAttribute('stroke', 'white');
-            branch1.setAttribute('stroke-width', '2');
-            branch2.setAttribute('stroke', 'white');
-            branch2.setAttribute('stroke-width', '2');
-            fallbackSvg.appendChild(branch1);
-            fallbackSvg.appendChild(branch2);
-        }
-        this.svgTemplates.push(fallbackSvg);
-    }
 }
 
-},{"./asset-loader":"fEkzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fEkzs":[function(require,module,exports,__globalThis) {
-// src/utils/animations/core/asset-loader.ts
-/**
- * Asset loader utility optimized for static hosting environments like GitHub Pages
- */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "AssetLoader", ()=>AssetLoader);
-class AssetLoader {
-    static{
-        this.cache = {};
-    }
-    /**
-     * Loads assets from a directory using a manifest file approach
-     * @param directory - Directory path
-     * @param extension - File extension filter (e.g., '.svg')
-     * @returns Promise resolving to array of file URLs
-     */ static async loadFromDirectory(directory, extension = '.svg') {
-        // Normalize directory path
-        const normalizedDir = directory.endsWith('/') ? directory : `${directory}/`;
-        const cacheKey = `${normalizedDir}_${extension}`;
-        // Try accessing your files directly based on the list you have
-        const knownFiles = [
-            "23838.svg",
-            "23843.svg",
-            "23857.svg",
-            "23901.svg",
-            "23904.svg",
-            "23916.svg",
-            "23956.svg",
-            "23958.svg",
-            "24209.svg",
-            "24239.svg",
-            "uu0604design_20220106_\u96EA\u306E\u7D50\u66761.svg"
-        ].map((file)=>`${normalizedDir}${file}`);
-        const existingFiles = await Promise.all(knownFiles.map(async (url)=>{
-            try {
-                const response = await fetch(url, {
-                    method: 'HEAD'
-                });
-                return response.ok ? url : null;
-            } catch  {
-                return null;
-            }
-        }));
-        const validFiles = existingFiles.filter(Boolean);
-        if (validFiles.length > 0) {
-            console.log(`Found ${validFiles.length} SVGs through direct checking`);
-            return validFiles;
-        }
-        // Return cached results if available
-        if (this.cache[cacheKey]) return this.cache[cacheKey];
-        try {
-            // For GitHub Pages, an assets.json manifest is the most reliable approach
-            const manifestResult = await this.loadFromManifest(normalizedDir, extension);
-            if (manifestResult.length > 0) {
-                this.cache[cacheKey] = manifestResult;
-                return manifestResult;
-            }
-            console.warn(`No assets found in ${normalizedDir}. Please create an assets.json manifest file.`);
-            console.info(`
-  === IMPLEMENTATION GUIDANCE ===
-  Create a file at ${normalizedDir}assets.json with your actual SVG filenames:
-  {
-    "files": [
-      "23838.svg",
-      "uu0604design_20220106_\u{96EA}\u{306E}\u{7D50}\u{6676}1.svg",
-      "your-actual-filename.svg",
-      "..."
-    ]
-  }
-  ============================`);
-            return [];
-        } catch (error) {
-            console.error(`Failed to load assets from ${normalizedDir}:`, error);
-            return [];
-        }
-    }
-    /**
-     * Load assets from a manifest file
-     */ static async loadFromManifest(directory, extension) {
-        try {
-            // Try to fetch the asset manifest
-            const manifestUrl = `${directory}assets.json?cache=${Date.now()}`;
-            console.log(`Attempting to load manifest from: ${manifestUrl}`);
-            const response = await fetch(manifestUrl);
-            console.log(`Manifest fetch response status: ${response.status}`);
-            if (!response.ok) {
-                console.warn(`Asset manifest not found at ${manifestUrl}`);
-                return [];
-            }
-            // Parse the manifest
-            const text = await response.text();
-            console.log(`Manifest content: ${text.substring(0, 100)}...`);
-            try {
-                const manifest = JSON.parse(text);
-                if (!Array.isArray(manifest.files)) {
-                    console.warn(`Invalid manifest format at ${manifestUrl}. Expected "files" array.`);
-                    return [];
-                }
-                // Return only the files matching our extension
-                const filteredFiles = manifest.files.filter((file)=>file.endsWith(extension)).map((file)=>`${directory}${file}`);
-                console.log(`Found ${filteredFiles.length} files in manifest`);
-                return filteredFiles;
-            } catch (jsonError) {
-                console.error(`JSON parse error for ${manifestUrl}:`, jsonError);
-                return [];
-            }
-        } catch (error) {
-            console.debug(`Error loading asset manifest:`, error);
-            return [];
-        }
-    }
-    /**
-     * Loads an SVG file as text
-     * @param path - Path to the SVG file
-     * @returns Promise resolving to SVG content string
-     */ static async loadSVGFile(path) {
-        try {
-            const response = await fetch(path);
-            if (!response.ok) {
-                console.warn(`Failed to load SVG: ${path} (${response.status})`);
-                return null;
-            }
-            // Get SVG as text
-            return await response.text();
-        } catch (error) {
-            console.warn(`Error loading SVG file ${path}:`, error);
-            return null;
-        }
-    }
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"j1tiZ":[function(require,module,exports,__globalThis) {
-// src/utils/animations/particles/snow-particle.ts
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8mYKt":[function(require,module,exports,__globalThis) {
+// src/utils/animations/particles/sakura-particle.ts
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "SnowParticle", ()=>SnowParticle);
+parcelHelpers.export(exports, "SakuraParticle", ()=>SakuraParticle);
 var _particleBase = require("../core/particle-base");
-class SnowParticle extends (0, _particleBase.ParticleBase) {
+class SakuraParticle extends (0, _particleBase.ParticleBase) {
     /**
-   * Factory method to create a new snow particle
-   * @param containerWidth - Width of the container
-   * @param containerHeight - Height of the container
-   * @param options - Configuration options for snow particles
-   * @returns A new configured SnowParticle instance
-   */ static create(containerWidth, containerHeight, options) {
-        // Generate a unique ID for the particle
-        const id = Math.floor(Math.random() * 1000000);
-        // Create the base configuration
-        const config = {
-            position: {
-                x: Math.random() * containerWidth,
-                y: Math.random() * containerHeight * -1 - 50 // Start above the viewport
-            },
-            speed: {
-                x: 0,
-                y: Math.random() * (options.speed.max - options.speed.min) + options.speed.min
-            },
-            size: Math.random() * (options.size.max - options.size.min) + options.size.min,
-            opacity: Math.random() * (options.opacity.max - options.opacity.min) + options.opacity.min,
-            rotation: Math.random() * 360
-        };
-        // Create the particle with the proper constructor parameters
-        const particle = new SnowParticle(config, containerWidth, containerHeight, options.fadeThreshold || 0.8, options.fadeSpeed || 0.02);
-        // Store options for later use
-        particle.options = options;
-        // Set additional properties
-        particle.baseX = config.position.x;
-        particle.driftFactor = Math.random() * 0.1;
-        particle.rotationSpeed = (Math.random() - 0.5) * 2;
-        return particle;
-    }
-    /**
-   * Creates a snow particle 
-   * @param config - Initial configuration
+   * Creates a sakura petal particle
+   * @param config - Configuration parameters for the particle
    * @param canvasWidth - Width of the canvas
    * @param canvasHeight - Height of the canvas
-   * @param fadeThreshold - Screen height percentage where fade begins
-   * @param fadeSpeed - Speed of the fade effect
-   */ constructor(config, canvasWidth, canvasHeight, fadeThreshold = 0.8, fadeSpeed = 0.02){
-        super(config, canvasWidth, canvasHeight, fadeThreshold, fadeSpeed), this.baseX = 0, this.driftFactor = 0, this.rotationSpeed = 0;
-        this.baseX = config.position.x;
-        this.options = {
-            count: 100,
-            speed: {
-                min: 1,
-                max: 3
-            },
-            size: {
-                min: 5,
-                max: 20
-            },
-            opacity: {
-                min: 0.6,
-                max: 1.0
-            }
-        };
+   * @param wind - Wind strength and direction
+   */ constructor(config, canvasWidth, canvasHeight, wind = 0, fadeThreshold = 0.8, fadeSpeed = 0.02){
+        super(config, canvasWidth, canvasHeight, fadeThreshold, fadeSpeed);
+        // Set sakura-specific properties
+        this.wind = wind;
+        this.swayAmount = Math.random() * 2 + 1;
+        this.swayFrequency = Math.random() * 2 + 1;
+        this.swayOffset = Math.random() * Math.PI * 2;
     }
     /**
-   * Update the snow particle's state
-   * @param deltaTime - Time elapsed since last update
+   * Update the sakura particle with sway motion
+   * @param deltaTime - Time elapsed since last update in seconds
    * @returns boolean indicating if the particle is still active
    */ update(deltaTime) {
-        // Call the parent update method first
-        if (!super.update(deltaTime)) return false;
-        // Apply horizontal drift (sine wave motion)
-        this.position.x = this.baseX + Math.sin(this.position.y * this.driftFactor) * 50;
-        // Apply wind if specified
-        if (this.options?.wind) {
-            this.position.x += this.options.wind * deltaTime * 60;
-            this.baseX += this.options.wind * deltaTime * 6; // Gradually shift the base position
-        }
-        // Update rotation
-        this.rotation += this.rotationSpeed * deltaTime * 60;
-        // Check if out of bounds
-        if (this.position.y > this.canvasHeight + 50 || this.position.x < -50 || this.position.x > this.canvasWidth + 50 || this.opacity <= 0) {
-            this.resetWithNewValues();
-            return true; // The particle is still active, just reset
-        }
-        return true;
+        // Apply wind effect to horizontal speed
+        this.speed.x += this.wind * deltaTime * 0.1;
+        // Apply sway motion
+        this.speed.x += Math.sin(this.currentLifetime * this.swayFrequency + this.swayOffset) * this.swayAmount * deltaTime;
+        // Adjust rotation based on horizontal movement
+        this.rotation += this.speed.x * 15 * deltaTime;
+        // Call base class update
+        return super.update(deltaTime);
     }
     /**
-   * Reset the particle with custom configuration
-   * @param config - New configuration (optional)
-   */ reset(config) {
-        if (config) {
-            // If config is provided, use parent reset method
-            super.reset(config);
-            this.baseX = config.position.x;
-        } else // Otherwise, generate new values
-        this.resetWithNewValues();
-    }
-    /**
-   * Helper method to reset particle with new random values
-   */ resetWithNewValues() {
-        // Create new configuration
-        const newConfig = {
-            position: {
-                x: Math.random() * this.canvasWidth,
-                y: -50 - Math.random() * 100 // Start above the viewport
-            },
-            speed: {
-                x: 0,
-                y: Math.random() * (this.options?.speed?.max - this.options?.speed?.min) + (this.options?.speed?.min || 1)
-            },
-            size: Math.random() * (this.options?.size?.max - this.options?.size?.min) + (this.options?.size?.min || 2),
-            opacity: Math.random() * (this.options?.opacity?.max - this.options?.opacity?.min) + (this.options?.opacity?.min || 0.5),
-            rotation: Math.random() * 360
+   * Create a new sakura particle
+   * @param canvasWidth - Width of the canvas
+   * @param canvasHeight - Height of the canvas
+   * @param options - Particle options
+   * @returns New sakura particle
+   */ static create(canvasWidth, canvasHeight, options) {
+        // Set random position above the screen
+        const position = {
+            x: Math.random() * canvasWidth,
+            y: -Math.random() * 50 - 20
         };
-        // Use the parent reset method
-        super.reset(newConfig);
-        // Set additional properties
-        this.baseX = newConfig.position.x;
-        this.rotationSpeed = (Math.random() - 0.5) * 2;
-        this.driftFactor = Math.random() * 0.1;
+        // Set random speed
+        const speed = {
+            x: (Math.random() - 0.5) * 0.5,
+            y: Math.random() * (options.speed.max - options.speed.min) + options.speed.min
+        };
+        // Set random size
+        const size = Math.random() * (options.size.max - options.size.min) + options.size.min;
+        // Set random opacity
+        const opacity = Math.random() * (options.opacity.max - options.opacity.min) + options.opacity.min;
+        // Set random rotation
+        const rotation = Math.random() * 360;
+        // Set random color if colors provided
+        let color;
+        if (options.colors && options.colors.length > 0) color = options.colors[Math.floor(Math.random() * options.colors.length)];
+        else // Default to light pink if no colors provided
+        color = `rgba(255, ${200 + Math.floor(Math.random() * 55)}, ${200 + Math.floor(Math.random() * 55)}, ${opacity})`;
+        // Create configuration
+        const config = {
+            position,
+            speed,
+            size,
+            opacity,
+            rotation,
+            color
+        };
+        return new SakuraParticle(config, canvasWidth, canvasHeight, options.wind || 0, options.fadeThreshold || 0.8, options.fadeSpeed || 0.02);
     }
 }
 
@@ -2693,83 +2409,7 @@ class ParticleBase {
     }
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8mYKt":[function(require,module,exports,__globalThis) {
-// src/utils/animations/particles/sakura-particle.ts
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "SakuraParticle", ()=>SakuraParticle);
-var _particleBase = require("../core/particle-base");
-class SakuraParticle extends (0, _particleBase.ParticleBase) {
-    /**
-   * Creates a sakura petal particle
-   * @param config - Configuration parameters for the particle
-   * @param canvasWidth - Width of the canvas
-   * @param canvasHeight - Height of the canvas
-   * @param wind - Wind strength and direction
-   */ constructor(config, canvasWidth, canvasHeight, wind = 0, fadeThreshold = 0.8, fadeSpeed = 0.02){
-        super(config, canvasWidth, canvasHeight, fadeThreshold, fadeSpeed);
-        // Set sakura-specific properties
-        this.wind = wind;
-        this.swayAmount = Math.random() * 2 + 1;
-        this.swayFrequency = Math.random() * 2 + 1;
-        this.swayOffset = Math.random() * Math.PI * 2;
-    }
-    /**
-   * Update the sakura particle with sway motion
-   * @param deltaTime - Time elapsed since last update in seconds
-   * @returns boolean indicating if the particle is still active
-   */ update(deltaTime) {
-        // Apply wind effect to horizontal speed
-        this.speed.x += this.wind * deltaTime * 0.1;
-        // Apply sway motion
-        this.speed.x += Math.sin(this.currentLifetime * this.swayFrequency + this.swayOffset) * this.swayAmount * deltaTime;
-        // Adjust rotation based on horizontal movement
-        this.rotation += this.speed.x * 15 * deltaTime;
-        // Call base class update
-        return super.update(deltaTime);
-    }
-    /**
-   * Create a new sakura particle
-   * @param canvasWidth - Width of the canvas
-   * @param canvasHeight - Height of the canvas
-   * @param options - Particle options
-   * @returns New sakura particle
-   */ static create(canvasWidth, canvasHeight, options) {
-        // Set random position above the screen
-        const position = {
-            x: Math.random() * canvasWidth,
-            y: -Math.random() * 50 - 20
-        };
-        // Set random speed
-        const speed = {
-            x: (Math.random() - 0.5) * 0.5,
-            y: Math.random() * (options.speed.max - options.speed.min) + options.speed.min
-        };
-        // Set random size
-        const size = Math.random() * (options.size.max - options.size.min) + options.size.min;
-        // Set random opacity
-        const opacity = Math.random() * (options.opacity.max - options.opacity.min) + options.opacity.min;
-        // Set random rotation
-        const rotation = Math.random() * 360;
-        // Set random color if colors provided
-        let color;
-        if (options.colors && options.colors.length > 0) color = options.colors[Math.floor(Math.random() * options.colors.length)];
-        else // Default to light pink if no colors provided
-        color = `rgba(255, ${200 + Math.floor(Math.random() * 55)}, ${200 + Math.floor(Math.random() * 55)}, ${opacity})`;
-        // Create configuration
-        const config = {
-            position,
-            speed,
-            size,
-            opacity,
-            rotation,
-            color
-        };
-        return new SakuraParticle(config, canvasWidth, canvasHeight, options.wind || 0, options.fadeThreshold || 0.8, options.fadeSpeed || 0.02);
-    }
-}
-
-},{"../core/particle-base":"avGfU","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"Tekby":[function(require,module,exports,__globalThis) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"Tekby":[function(require,module,exports,__globalThis) {
 // src/utils/animations/particles/rain-particle.ts
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -3073,6 +2713,107 @@ class HeartParticle extends (0, _particleBase.ParticleBase) {
     }
 }
 
+},{"../core/particle-base":"avGfU","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bo4bl":[function(require,module,exports,__globalThis) {
+// src/utils/animations/particles/star-particle.ts
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "StarParticle", ()=>StarParticle);
+var _particleBase = require("../core/particle-base");
+class StarParticle extends (0, _particleBase.ParticleBase) {
+    /**
+   * Creates a twinkling star particle
+   * @param config - Configuration parameters for the particle
+   * @param canvasWidth - Width of the canvas
+   * @param canvasHeight - Height of the canvas
+   */ constructor(config, canvasWidth, canvasHeight){
+        super(config, canvasWidth, canvasHeight, 1.0, 0.01);
+        // Set star-specific properties
+        this.twinkleFrequency = Math.random() * 3 + 0.5;
+        this.twinkleAmount = Math.random() * 0.5 + 0.3;
+        this.twinkleOffset = Math.random() * Math.PI * 2;
+        this.originalOpacity = config.opacity;
+        // Very slow drift
+        this.driftSpeed = {
+            x: (Math.random() - 0.5) * 0.1,
+            y: (Math.random() - 0.5) * 0.1
+        };
+    }
+    /**
+   * Update star particle with twinkling effect
+   * @param deltaTime - Time elapsed since last update in seconds
+   * @returns boolean indicating if the particle is still active
+   */ update(deltaTime) {
+        // Apply twinkling effect
+        const twinkleFactor = 0.5 + Math.sin(this.currentLifetime * this.twinkleFrequency + this.twinkleOffset) * this.twinkleAmount;
+        this.opacity = this.originalOpacity * twinkleFactor;
+        // Apply very slow drift
+        this.position.x += this.driftSpeed.x * deltaTime;
+        this.position.y += this.driftSpeed.y * deltaTime;
+        // No boundary check - stars stay visible
+        this.currentLifetime += deltaTime;
+        // Stars live indefinitely in normal operation
+        if (this.currentLifetime >= this.maxLifetime) return false;
+        return true;
+    }
+    /**
+   * Create a new star particle
+   * @param canvasWidth - Width of the canvas
+   * @param canvasHeight - Height of the canvas
+   * @param options - Particle options
+   * @returns New star particle
+   */ static create(canvasWidth, canvasHeight, options) {
+        // Random position anywhere on screen
+        const position = {
+            x: Math.random() * canvasWidth,
+            y: Math.random() * canvasHeight
+        };
+        // Stars are stationary with just a twinkle
+        const speed = {
+            x: 0,
+            y: 0
+        };
+        // Random size with some stars larger than others
+        const sizeDistribution = Math.random();
+        let size;
+        if (sizeDistribution > 0.8) // Larger stars (20% of stars)
+        size = options.size.min + (options.size.max - options.size.min) * (0.7 + Math.random() * 0.3);
+        else // Normal stars (80% of stars)
+        size = options.size.min + (options.size.max - options.size.min) * Math.random() * 0.7;
+        // Random opacity
+        const opacity = options.opacity.min + (options.opacity.max - options.opacity.min) * Math.random();
+        // Star colors tend toward white/blue/yellow
+        let color;
+        if (options.colors && options.colors.length > 0) color = options.colors[Math.floor(Math.random() * options.colors.length)];
+        else {
+            // Default star colors with distribution
+            const colorType = Math.random();
+            if (colorType < 0.6) {
+                // White/blue-white (60%)
+                const blueWhite = 220 + Math.floor(Math.random() * 35);
+                color = `rgba(${blueWhite}, ${blueWhite}, 255, ${opacity})`;
+            } else if (colorType < 0.9) {
+                // Yellow-white (30%)
+                const yellowWhite = 220 + Math.floor(Math.random() * 35);
+                color = `rgba(255, 255, ${yellowWhite}, ${opacity})`;
+            } else {
+                // Reddish (10%)
+                const redTint = 180 + Math.floor(Math.random() * 75);
+                color = `rgba(255, ${redTint}, ${redTint}, ${opacity})`;
+            }
+        }
+        // Create configuration with very long lifetime
+        const config = {
+            position,
+            speed,
+            size,
+            opacity,
+            color,
+            maxLifetime: 86400
+        };
+        return new StarParticle(config, canvasWidth, canvasHeight);
+    }
+}
+
 },{"../core/particle-base":"avGfU","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"60OL6":[function(require,module,exports,__globalThis) {
 /**
  * Initializes the profile card with interactive elements
@@ -3202,119 +2943,7 @@ function initializeOverlayPanel(containerId) {
     }
 }
 
-},{"./overlays":"1Mc8h","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9Y45t":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "defaultParticleConfig", ()=>defaultParticleConfig);
-/**
- * Initializes the particles background effect
- * @param containerId - ID of the container element for particles
- * @param customConfig - Optional custom particle configuration
- */ parcelHelpers.export(exports, "initializeParticles", ()=>initializeParticles);
-const defaultParticleConfig = {
-    particles: {
-        number: {
-            value: 80,
-            density: {
-                enable: true,
-                value_area: 800
-            }
-        },
-        color: {
-            value: "#ff9ad2" // Pink based on Apothecary Diaries theme
-        },
-        shape: {
-            type: "circle",
-            stroke: {
-                width: 0,
-                color: "#000000"
-            }
-        },
-        opacity: {
-            value: 0.5,
-            random: true,
-            anim: {
-                enable: true,
-                speed: 1,
-                opacity_min: 0.1,
-                sync: false
-            }
-        },
-        size: {
-            value: 3,
-            random: true,
-            anim: {
-                enable: true,
-                speed: 2,
-                size_min: 0.1,
-                sync: false
-            }
-        },
-        line_linked: {
-            enable: true,
-            distance: 150,
-            color: "#17d8c3",
-            opacity: 0.4,
-            width: 1
-        },
-        move: {
-            enable: true,
-            speed: 2,
-            direction: "none",
-            random: true,
-            straight: false,
-            out_mode: "out",
-            bounce: false
-        }
-    },
-    interactivity: {
-        detect_on: "canvas",
-        events: {
-            onhover: {
-                enable: true,
-                mode: "grab"
-            },
-            onclick: {
-                enable: true,
-                mode: "push"
-            },
-            resize: true
-        },
-        modes: {
-            grab: {
-                distance: 140,
-                line_linked: {
-                    opacity: 1
-                }
-            },
-            push: {
-                particles_nb: 4
-            }
-        }
-    },
-    retina_detect: true
-};
-function initializeParticles(containerId, customConfig) {
-    // Check if particles.js is loaded
-    if (typeof window.particlesJS !== 'function') {
-        console.error('particles.js library not loaded');
-        return;
-    }
-    try {
-        // Merge default config with any custom settings
-        const config = customConfig ? {
-            ...defaultParticleConfig,
-            ...customConfig
-        } : defaultParticleConfig;
-        // Initialize particles
-        window.particlesJS(containerId, config);
-        console.log('Particles initialized successfully');
-    } catch (error) {
-        console.error('Failed to initialize particles:', error);
-    }
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3rnt5":[function(require,module,exports,__globalThis) {
+},{"./overlays":"1Mc8h","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3rnt5":[function(require,module,exports,__globalThis) {
 /**
  * Handles navigation between different sections of the site
  */ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
