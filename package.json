@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Premium interactive portfolio website",
   "scripts": {
-    "start": "parcel src/index.html --open",
-    "build": "parcel build src/index.html --public-url ./ --dist-dir docs",
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html --public-url ./ --dist-dir docs",
     "clean": "rm -rf docs/ .parcel-cache/",
-    "serve": "parcel serve src/index.html"
+    "serve": "parcel serve index.html"
   },
   "devDependencies": {
     "parcel": "^2.8.3",
