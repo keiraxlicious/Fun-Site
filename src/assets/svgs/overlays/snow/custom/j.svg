@@ -1,4 +1,0 @@
-<!-- snowflake1.svg - Simple 6-pointed snowflake -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <path fill="#FFFFFF" d="M50,0 L53,40 L90,25 L55,50 L90,75 L53,60 L50,100 L47,60 L10,75 L45,50 L10,25 L47,40 z"/>
-</svg>

@@ -11,6 +11,6 @@
       "outDir": "zdist",
       "lib": ["DOM", "ESNext"]
     },
-    "include": ["src/**/*"]
+    "include": ["src/**/*", "bak/animations", "bak/animations.hearts.drawer.ts", "bak/animations.hearts.helper.ts", "bak/animations.hearts.ts", "bak/animations.leaves.drawer.ts", "bak/animations.leaves.helper.ts", "bak/animations.leaves.ts", "bak/animations.rain.drawer.ts", "bak/animations.rain.ts", "bak/animations.sakura.drawer.ts", "bak/animations.sakura.helper.ts", "bak/animations.sakura.ts", "bak/animations.snow.drawer.ts", "bak/animations.snow.helper.ts", "bak/animations.snow.ts"]
   }
   
