@@ -11,6 +11,6 @@
       "outDir": "dist",
       "lib": ["DOM", "ESNext"]
     },
-    "include": ["src/**/*"]
+    "include": ["src/**/*", "scratched/animations.hearts.drawer.ts", "scratched/animations.hearts.helper.ts", "scratched/animations.hearts.ts", "scratched/animations.leaves.drawer.ts", "scratched/animations.leaves.helper.ts", "scratched/animations.leaves.ts", "scratched/animations.rain.drawer.ts", "scratched/animations.rain.ts", "scratched/animations.sakura.drawer.ts", "scratched/animations.sakura.helper.ts", "scratched/animations.sakura.ts", "scratched/animations.snow.drawer.ts", "scratched/animations.snow.helper.ts", "scratched/animations.snow.ts", "scratched/animations", "scratched/particleConfig.ts", "scratched/particles.ts", "scratched/overlayPanel.ts.bak"]
   }
   

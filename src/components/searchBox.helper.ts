@@ -154,6 +154,50 @@ export function createFloatingCharacter(
     
     // Remove element after animation completes
     setTimeout(() => {
+        createExplosion(charElement);
         charElement.remove();
     }, outwardDuration + upwardDuration + 100);
+}
+
+/**
+ * Creates an explosion effect when a floating character disappears.
+ * @param {HTMLElement} charElement - The original floating character element.
+ */
+export function createExplosion(charElement: { getBoundingClientRect: () => any; textContent: string | null; style: { color: string; }; }) {
+    const numFragments = 6 + Math.floor(Math.random() * 6); // 6-12 fragments
+    const rect = charElement.getBoundingClientRect();
+
+    for (let i = 0; i < numFragments; i++) {
+        const fragment = document.createElement('span');
+        fragment.textContent = charElement.textContent;
+        fragment.className = 'floating-character';
+        document.body.appendChild(fragment);
+
+        // Randomize initial position near the character
+        fragment.style.left = `${rect.left + Math.random() * 10 - 5}px`;
+        fragment.style.top = `${rect.top + Math.random() * 10 - 5}px`;
+        fragment.style.opacity = '1';
+        fragment.style.transform = `scale(${0.7 + Math.random() * 0.3})`;
+        fragment.style.color = charElement.style.color;
+
+        // Explosion trajectory
+        const angle = Math.random() * Math.PI * 2; // Full 360-degree explosion
+        const distance = 50 + Math.random() * 100; // 50-150px distance
+        const finalX = rect.left + Math.cos(angle) * distance;
+        const finalY = rect.top + Math.sin(angle) * distance;
+
+        // Animation
+        fragment.style.transition = `all 500ms ease-out`;
+        setTimeout(() => {
+            fragment.style.left = `${finalX}px`;
+            fragment.style.top = `${finalY}px`;
+            fragment.style.opacity = '0';
+            fragment.style.transform = `scale(${0.3 + Math.random() * 0.2}) rotate(${Math.random() * 360}deg)`;
+        }, 10);
+
+        // Remove fragment after animation
+        setTimeout(() => {
+            fragment.remove();
+        }, 600);
+    }
 }

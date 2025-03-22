@@ -6,6 +6,7 @@ export function initializeProfileCard(): void {
     const profilePic = document.querySelector('.profile-picture') as HTMLElement;
     if (profilePic) {
         addFloatingEffect(profilePic);
+        renameProfileElements('Keira', 'Code Sorceress', 'Artistic Alchemist');
     }
     
     // Add text animation to headings
@@ -48,3 +49,20 @@ function addFloatingEffect(element: HTMLElement): void {
     
     updatePosition();
 }
+
+export function renameProfileElements(name: string | null, title: string | null, subtitle: string | null) {
+    const nameElement = document.querySelector('.profile-name');
+    const titleElement = document.querySelector('.profile-title');
+    const subtitleElement = document.querySelector('.profile-subtitle');
+
+    if (nameElement) {
+      nameElement.textContent = name;
+    }
+    if (titleElement) {
+      titleElement.textContent = title;
+    }
+    if (subtitleElement) {
+      subtitleElement.textContent = subtitle;
+    }
+}
+

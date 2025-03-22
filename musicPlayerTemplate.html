@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Audio Controls</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #3a86ff;
+        --primary-dark: #0a60ff;
+        --secondary: #8338ec;
+        --text: #2b2d42;
+        --text-light: #8d99ae;
+        --background: #f8f9fa;
+        --shadow: rgba(0, 0, 0, 0.1);
+        --card-bg: rgba(255, 255, 255, 0.95);
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(135deg, #f6f8ff 0%, #f1f3fa 100%);
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--text);
+      }
+
+      .audio-player {
+        width: 420px;
+        background: var(--card-bg);
+        border-radius: 16px;
+        box-shadow: 
+          0 10px 30px rgba(0, 0, 0, 0.08),
+          0 30px 60px rgba(58, 134, 255, 0.1);
+        padding: 30px;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+      
+      .audio-player::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+      }
+
+      .now-playing {
+        display: flex;
+        align-items: center;
+        margin-bottom: 25px;
+      }
+
+      .album-art {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        background-image: url('https://images.unsplash.com/photo-1614680376593-902f74cf0d41?q=80&w=1000');
+        background-size: cover;
+        margin-right: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .track-info {
+        flex: 1;
+      }
+
+      .track-name {
+        font-weight: 600;
+        font-size: 18px;
+        margin: 0 0 5px 0;
+        color: var(--text);
+      }
+
+      .artist-name {
+        font-size: 14px;
+        color: var(--text-light);
+        margin: 0;
+      }
+
+      .visualizer-container {
+        height: 60px;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+      }
+
+      .visualizer-bar {
+        width: 5px;
+        background: linear-gradient(180deg, var(--primary), var(--secondary));
+        border-radius: 2px;
+        margin: 0 2px;
+        transition: height 0.2s ease;
+      }
+
+      .volume-controls {
+        position: relative;
+        margin-bottom: 10px;
+      }
+
+      .volume-label {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .volume-text {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text);
+      }
+
+      .volume-percentage {
+        font-size: 14px;
+        color: var(--primary);
+        font-weight: 600;
+      }
+
+      .slider-container {
+        position: relative;
+        height: 6px;
+        width: 100%;
+      }
+
+      .slider-track {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: #e9ecef;
+        border-radius: 3px;
+      }
+
+      .slider-fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        border-radius: 3px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        /* Removed transition for snappier response */
+      }
+
+      .volume-slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 6px;
+        background: transparent;
+        outline: none;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        z-index: 10;
+        margin-top: -5px; /* Adjust this value as needed */
+        top: -10px; /* Adjust as needed */
+      }
+
+      .volume-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: white;
+        cursor: pointer;
+        border: 2px solid var(--primary);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+        transition: all 0.2s ease;
+        /* Fix vertical alignment */
+        margin-top: -7px; /* Centers the thumb vertically */
+      }
+
+      .volume-slider::-webkit-slider-thumb:hover {
+        transform: scale(1.1);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      }
+
+      .volume-slider::-moz-range-thumb {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: white;
+        cursor: pointer;
+        border: 2px solid var(--primary);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+        transition: all 0.2s ease;
+      }
+
+      .volume-slider::-moz-range-thumb:hover {
+        transform: scale(1.1);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      }
+
+      .controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 25px;
+      }
+
+      .audio-control {
+        background: none;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text);
+        transition: all 0.2s ease;
+      }
+
+      .audio-control:hover {
+        background: rgba(0, 0, 0, 0.05);
+        transform: translateY(-2px);
+      }
+
+      .audio-control svg {
+        width: 20px;
+        height: 20px;
+        fill: currentColor;
+      }
+
+      .play-button {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        box-shadow: 0 4px 15px rgba(58, 134, 255, 0.4);
+        transition: all 0.3s ease;
+      }
+
+      .play-button:hover {
+        transform: scale(1.08) translateY(-2px);
+        box-shadow: 0 8px 20px rgba(58, 134, 255, 0.5);
+      }
+
+      .play-button svg {
+        width: 22px;
+        height: 22px;
+        fill: currentColor;
+      }
+
+      .volume-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        color: var(--text);
+        transition: all 0.2s ease;
+      }
+
+      .volume-button:hover {
+        color: var(--primary);
+      }
+
+      .volume-icon {
+        width: 20px;
+        height: 20px;
+      }
+
+      .settings-panel {
+        margin-top: 25px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .settings-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+
+      .settings-label {
+        font-size: 14px;
+        color: var(--text);
+      }
+
+      .toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 40px;
+        height: 20px;
+      }
+
+      .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .toggle-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #e9ecef;
+        transition: 0.4s;
+        border-radius: 20px;
+      }
+
+      .toggle-slider:before {
+        position: absolute;
+        content: "";
+        height: 16px;
+        width: 16px;
+        left: 2px;
+        bottom: 2px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+
+      input:checked + .toggle-slider {
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+      }
+
+      input:checked + .toggle-slider:before {
+        transform: translateX(20px);
+      }
+
+      .mini-eq {
+        display: flex;
+        align-items: center;
+        margin-top: 15px;
+      }
+
+      .eq-band {
+        width: 15px;
+        margin-right: 3px;
+        border-radius: 1px;
+      }
+
+      .eq-slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 60px;
+        background: transparent;
+        outline: none;
+        transform: rotate(180deg);
+      }
+
+      .eq-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--primary);
+        cursor: pointer;
+      }
+
+      .eq-slider::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 3px;
+        background: #e9ecef;
+        border-radius: 1px;
+      }
+
+      @media (max-width: 480px) {
+        .audio-player {
+          width: 300px;
+          padding: 20px;
+        }
+      }
+
+      .dark-mode {
+        --primary: #5ea3ff;
+        --primary-dark: #3a86ff;
+        --secondary: #9d4edd;
+        --text: #e9ecef;
+        --text-light: #adb5bd;
+        --background: #1a1b26;
+        --card-bg: rgba(30, 32, 46, 0.95);
+      }
+
+      .dark-mode body {
+        background: linear-gradient(135deg, #1a1b26 0%, #13141c 100%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="audio-player" id="audioPlayer">
+      <div class="now-playing">
+        <div class="album-art"></div>
+        <div class="track-info">
+          <h3 class="track-name">Track Name</h3>
+          <p class="artist-name">Artist Name</p>
+        </div>
+      </div>
+
+      <div class="visualizer-container" id="visualizer">
+        <!-- Visualizer bars will be added by JavaScript -->
+      </div>
+
+      <div class="volume-controls">
+        <div class="volume-label">
+          <div class="volume-text">
+            <button class="volume-button" id="volumeButton">
+              <svg class="volume-icon" id="volumeIcon" viewBox="0 0 24 24">
+                <path
+                  d="M14.5,12c0-1.38-0.97-2.5-2.5-2.5S9.5,10.62,9.5,12s0.97,2.5,2.5,2.5S14.5,13.38,14.5,12z M12,20.5
+                  c-4.41,0-8-3.59-8-8s3.59-8,8-8s8,3.59,8,8S16.41,20.5,12,20.5z M12,7.5c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5
+                  S14.76,7.5,12,7.5z"
+                />
+              </svg>
+            </button>
+          </div>
+          <div class="volume-percentage" id="volumePercentage">70%</div>
+        </div>
+
+        <div class="slider-container">
+          <div class="slider-track"></div>
+          <div class="slider-fill" id="sliderFill" style="width: 70%"></div>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value="70"
+            class="volume-slider"
+            id="volumeSlider"
+          />
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="audio-control">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M6 6h2v12H6zm3.5 6l8.5 6V6l-8.5 6zm6.5 2.14L12.97 12 16 9.86v4.28z"
+            />
+          </svg>
+        </button>
+
+        <button class="play-button" id="playButton">
+          <svg viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7L8 5z" />
+          </svg>
+        </button>
+
+        <button class="audio-control">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <div class="settings-panel">
+        <div class="settings-row">
+          <span class="settings-label">Equalizer</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="eqToggle" />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="settings-row">
+          <span class="settings-label">Dark Mode</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="darkModeToggle" />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="mini-eq" id="miniEq" style="display: none">
+          <!-- EQ sliders will be added by JavaScript -->
+        </div>
+      </div>
+
+      <audio id="backgroundMusic" loop>
+        <source src="ambient-music.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+
+    <script>
+      // DOM Elements
+      const volumeSlider = document.getElementById("volumeSlider");
+      const volumePercentage = document.getElementById("volumePercentage");
+      const volumeButton = document.getElementById("volumeButton");
+      const volumeIcon = document.getElementById("volumeIcon");
+      const sliderFill = document.getElementById("sliderFill");
+      const playButton = document.getElementById("playButton");
+      const backgroundMusic = document.getElementById("backgroundMusic");
+      const visualizerContainer = document.getElementById("visualizer");
+      const eqToggle = document.getElementById("eqToggle");
+      const miniEq = document.getElementById("miniEq");
+      const darkModeToggle = document.getElementById("darkModeToggle");
+      const audioPlayer = document.getElementById("audioPlayer");
+
+      // Create visualizer bars
+      const barsCount = 32;
+      for (let i = 0; i < barsCount; i++) {
+        const bar = document.createElement("div");
+        bar.className = "visualizer-bar";
+        bar.style.height = `${Math.floor(Math.random() * 40 + 5)}px`;
+        visualizerContainer.appendChild(bar);
+      }
+
+      // Create equalizer bands
+      const bandsCount = 7;
+      const bands = ["60Hz", "150Hz", "400Hz", "1kHz", "2.5kHz", "6kHz", "12kHz"];
+      for (let i = 0; i < bandsCount; i++) {
+        const bandContainer = document.createElement("div");
+        bandContainer.className = "eq-band";
+        bandContainer.style.flex = "1";
+
+        const slider = document.createElement("input");
+        slider.type = "range";
+        slider.min = "0";
+        slider.max = "100";
+        slider.value = "50";
+        slider.className = "eq-slider";
+        slider.title = bands[i];
+
+        bandContainer.appendChild(slider);
+        miniEq.appendChild(bandContainer);
+      }
+
+      // Initialize audio settings
+      let isPlaying = false;
+      let isMuted = false;
+      let previousVolume = 70;
+      backgroundMusic.volume = 0.7;
+
+      // Load saved settings
+      const savedVolume = localStorage.getItem("backgroundMusicVolume");
+      const savedDarkMode = localStorage.getItem("darkMode") === "true";
+
+      if (savedVolume !== null) {
+        volumeSlider.value = savedVolume;
+        backgroundMusic.volume = savedVolume / 100;
+        volumePercentage.textContent = `${savedVolume}%`;
+        sliderFill.style.width = `${savedVolume}%`;
+      }
+
+      if (savedDarkMode) {
+        document.body.classList.add("dark-mode");
+        darkModeToggle.checked = true;
+      }
+
+      // Update volume when slider is moved - NO TRANSITION for snappier response
+      volumeSlider.addEventListener("input", function () {
+        const volumeValue = this.value;
+        backgroundMusic.volume = volumeValue / 100;
+        volumePercentage.textContent = `${volumeValue}%`;
+        
+        // Immediately update the fill with no transition
+        sliderFill.style.width = `${volumeValue}%`;
+
+        // Save to localStorage
+        localStorage.setItem("backgroundMusicVolume", volumeValue);
+
+        // Update mute state
+        if (volumeValue > 0 && isMuted) {
+          isMuted = false;
+          updateVolumeIcon();
+        } else if (volumeValue == 0 && !isMuted) {
+          isMuted = true;
+          updateVolumeIcon();
+        }
+      });
+
+      // Toggle mute on volume button click
+      volumeButton.addEventListener("click", function () {
+        if (!isMuted) {
+          // Store current volume before muting
+          previousVolume = volumeSlider.value;
+          backgroundMusic.volume = 0;
+          volumeSlider.value = 0;
+          volumePercentage.textContent = "0%";
+          sliderFill.style.width = "0%";
+          isMuted = true;
+        } else {
+          // Restore previous volume
+          volumeSlider.value = previousVolume;
+          backgroundMusic.volume = previousVolume / 100;
+          volumePercentage.textContent = `${previousVolume}%`;
+          sliderFill.style.width = `${previousVolume}%`;
+          isMuted = false;
+        }
+        updateVolumeIcon();
+      });
+
+      // Toggle play/pause
+      playButton.addEventListener("click", function () {
+        if (isPlaying) {
+          backgroundMusic.pause();
+          playButton.innerHTML = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5z" /></svg>';
+          stopVisualization();
+        } else {
+          backgroundMusic.play().catch(e => console.log("Playback prevented:", e));
+          playButton.innerHTML = '<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" /></svg>';
+          startVisualization();
+        }
+        isPlaying = !isPlaying;
+      });
+
+      // Toggle equalizer
+      eqToggle.addEventListener("change", function () {
+        if (this.checked) {
+          miniEq.style.display = "flex";
+        } else {
+          miniEq.style.display = "none";
+        }
+      });
+
+      // Toggle dark mode
+      darkModeToggle.addEventListener("change", function () {
+        if (this.checked) {
+          document.body.classList.add("dark-mode");
+          localStorage.setItem("darkMode", "true");
+        } else {
+          document.body.classList.remove("dark-mode");
+          localStorage.setItem("darkMode", "false");
+        }
+      });
+
+      // Function to update volume icon
+      function updateVolumeIcon() {
+        if (isMuted) {
+          volumeIcon.innerHTML = '<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" />';
+        } else if (volumeSlider.value < 30) {
+          volumeIcon.innerHTML = '<path d="M7 9v6h4l5 5V4l-5 5H7z" />';
+        } else if (volumeSlider.value < 70) {
+          volumeIcon.innerHTML = '<path d="M7 9v6h4l5 5V4l-5 5H7z"/><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" />';
+        } else {
+          volumeIcon.innerHTML = '<path d="M7 9v6h4l5 5V4l-5 5H7z"/><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" /><path d="M19 12c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71z" />';
+        }
+      }
+
+      // Audio visualization animation
+      let visualizationInterval;
+
+      function startVisualization() {
+        visualizationInterval = setInterval(() => {
+          const bars = visualizerContainer.querySelectorAll(".visualizer-bar");
+          bars.forEach(bar => {
+            // Only animate if the volume is not muted
+            if (!isMuted) {
+              const height = Math.floor(Math.random() * 40 + 5);
+              bar.style.height = `${height}px`;
+            } else {
+              bar.style.height = "5px";
+            }
+          });
+        }, 100);
+      }
+
+      function stopVisualization() {
+        clearInterval(visualizationInterval);
+        const bars = visualizerContainer.querySelectorAll(".visualizer-bar");
+        bars.forEach(bar => {
+          bar.style.height = "5px";
+        });
+      }
+
+      // Initialize volume icon
+      updateVolumeIcon();
+
+      // Add hover effect to slider thumb
+      volumeSlider.addEventListener("mouseenter", function() {
+        this.style.cursor = "pointer";
+      });
+      
+      // Add hover effect to audio player
+      audioPlayer.addEventListener("mouseenter", function() {
+        this.style.transform = "translateY(-5px)";
+        this.style.boxShadow = "0 15px 35px rgba(0, 0, 0, 0.1), 0 30px 60px rgba(58, 134, 255, 0.15)";
+      });
+      
+      audioPlayer.addEventListener("mouseleave", function() {
+        this.style.transform = "translateY(0)";
+        this.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.08), 0 30px 60px rgba(58, 134, 255, 0.1)";
+      });
+    </script>
+  </body>
+</html>

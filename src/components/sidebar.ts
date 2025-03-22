@@ -36,10 +36,10 @@ export function initializeSidebar(
         console.log(`Sidebar active: ${sidebar.classList.contains('active')}`);
     });
     
-    toggleButton.addEventListener('dblclick', (event) => {
-        sidebar.classList.add('hidden');
-        console.log('Sidebar hidden via double-click');
-    });
+    // toggleButton.addEventListener('dblclick', (event) => {
+    //     sidebar.classList.add('hidden');
+    //     console.log('Sidebar hidden via double-click');
+    // });
     // Set up panel navigation
     setupPanels();
     

@@ -1,0 +1,4 @@
+<!-- snowflake6.svg - Detailed crystal -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <path fill="#FFFFFF" d="M50,0 v15 l5,-5 v10 l-5,5 v25 l25,-25 l-5,-5 h10 l5,5 l25,-25 h-15 l-5,5 h-10 l-5,-5 h-25 l25,25 l5,-5 v10 l-5,5 l25,25 v-15 l-5,-5 v-10 l5,-5 v-25 l-25,25 l5,5 h-10 l-5,-5 l-25,25 h15 l5,-5 h10 l5,5 h25 l-25,-25 l-5,5 v-10 l5,-5 z"/>
+</svg>

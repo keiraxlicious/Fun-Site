@@ -9,7 +9,22 @@
     text-align: center;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(10px);
-    border: 2px solid var(--color-turquoise);
+    border: 0px solid var(--color-turquoise);
+    animation: border-glow 2s infinite alternate;
+}
+@keyframes border-glow {
+    0% {
+        box-shadow: 0 0 -10px var(--color-turquoise), 0 0 -10px var(--color-turquoise);
+        border-color: var(--color-turquoise);
+    }
+    50% {
+        box-shadow: 0 0 0px var(--color-turquoise), 0 0 0px var(--color-turquoise);
+        border-color: var(--color-turquoise);
+    }
+    100% {
+        box-shadow: 0 0 10px var(--color-turquoise), 0 0 10px var(--color-turquoise);
+        border-color: var(--color-turquoise);
+    }
 }
 
 .profile-picture {
@@ -59,4 +74,27 @@
     font-size: 16px;
     outline: none;
     transition: all 0.3s ease;
+}
+
+
+.search-container {
+    position: relative;
+}
+
+.floating-character {
+    position: absolute;
+    font-size: 24px;
+    pointer-events: none;
+    z-index: 100;
+    text-shadow: 0 0 8px currentColor;
+    will-change: transform, opacity, left, top;
+    /* Remove the standard transition since we'll set it dynamically in JS */
+    transition: none;
+    /* Add some 3D effect */
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    /* Ensure better text rendering during animations */
+    -webkit-font-smoothing: antialiased;
+    /* Add variable font weight for additional animation effect */
+    font-variation-settings: 'wght' 400;
 }
