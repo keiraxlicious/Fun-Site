@@ -1,140 +1,302 @@
-// src/utils/animations/core/ParticleEngine.ts
+// src/utils/animations/MagicParticles.ts
 
 import { 
-    ParticleType, 
-    ParticleOptions, 
-    ParticleState, 
-    RenderMode 
-  } from "../../types/particleTypes";
-  import { 
-    DEFAULT_PARTICLE_OPTIONS, 
-    DEFAULT_FRAME_RATE,
-    MAX_ANIMATION_ITERATIONS,
-    ERROR_MESSAGES
-  } from "../../configs/ParticleConfigs";
+  ParticleType, 
+  ParticleOptions, 
+  RenderMode 
+} from "../../types/particleTypes";
+import { ParticleEngine } from "./core/ParticleEngine";
+import { ParticleFactory } from "./core/ParticleBase";
+import { FallingEffect } from "./effects/FallingEffect";
+import { FloatingEffect } from "./effects/FloatingEffect";
+import { AssetLoader } from "./assets/AssetLoader";
+import { CanvasRenderer } from "./renderers/CanvasRenderer";
+import { AssetRenderer } from "./renderers/AssetRenderer";
+import { MAX_ANIMATION_ITERATIONS } from "../../configs/ParticleConfigs";
+
+// Track active engine instances
+const activeEngines: Record<string, MagicParticleEngine> = {};
+
+/**
+ * Initialize a particle animation
+ * @param containerId - ID of container element
+ * @param type - Type of particles to generate
+ * @param options - Particle configuration
+ * @returns Promise resolving when initialized
+ */
+export async function initializeParticles(
+  containerId: string,
+  type: ParticleType,
+  options?: Partial<ParticleOptions>
+): Promise<void> {
+  try {
+    // Clean up existing engine if any
+    const engineKey = `particleEngine_${containerId}_${type}`;
+    if (activeEngines[engineKey]) {
+      activeEngines[engineKey].dispose();
+      delete activeEngines[engineKey];
+    }
+    
+    // Create new engine
+    const engine = new MagicParticleEngine(containerId, type, options);
+    
+    // Initialize and start
+    await engine.initialize();
+    engine.start();
+    
+    // Store reference
+    activeEngines[engineKey] = engine;
+    
+    // Add to global scope for debugging
+    (window as any)[engineKey] = engine;
+  } catch (error) {
+    console.error("Failed to initialize particles:", error);
+    throw error;
+  }
+}
+
+/**
+ * Main particle engine implementation
+ */
+class MagicParticleEngine extends ParticleEngine {
+  private isRunning: boolean = false;
   
   /**
-   * Core animation engine for particles
+   * Initialize the particle engine
    */
-  export class ParticleEngine {
-    // DOM elements
-    protected container: HTMLElement;
-    protected canvas: HTMLCanvasElement | null = null;
-    protected ctx: CanvasRenderingContext2D | null = null;
+  public async initialize(): Promise<void> {
+    // Initialize canvas
+    this.initializeCanvas();
     
-    // Animation state
-    protected options: ParticleOptions;
-    protected type: ParticleType;
-    protected particles: ParticleState[] = [];
-    protected assets: HTMLImageElement[] = [];
-    protected frameInterval: number;
-    protected animationFrameId: number | null = null;
-    protected lastFrameTime: number = 0;
-    protected iterationCount: number = 0;
-    protected isDisposed: boolean = false;
+    // Load assets if needed
+    await this.loadAssets();
+    
+    // Create particles
+    this.createParticles();
+  }
   
-    /**
-     * Create a new particle engine
-     * @param containerId - ID of the container element
-     * @param type - Type of particles to generate
-     * @param options - Optional configuration
-     */
-    constructor(
-      containerId: string,
-      type: ParticleType,
-      options?: Partial<ParticleOptions>
-    ) {
-      // Find container element
-      const container = document.getElementById(containerId);
-      if (!container) {
-        throw new Error(ERROR_MESSAGES.CONTAINER_NOT_FOUND);
-      }
-      this.container = container;
-      
-      // Store particle type
-      this.type = type;
-      
-      // Merge default options with provided options
-      this.options = {
-        ...this.getDefaultOptions(type),
-        ...options
-      };
-      
-      // Validate particle count
-      this.assertParticleCount(this.options.count);
-      
-      // Set frame interval based on target frame rate
-      this.frameInterval = 1000 / DEFAULT_FRAME_RATE;
-    }
-    
-    /**
-     * Get default options for particle type
-     * @param type - Particle type
-     * @returns Default options
-     */
-    protected getDefaultOptions(type: ParticleType): ParticleOptions {
-      return DEFAULT_PARTICLE_OPTIONS[type] || DEFAULT_PARTICLE_OPTIONS.default;
-    }
-    
-    /**
-     * Assert that particle count is valid
-     * @param count - Number of particles
-     */
-    protected assertParticleCount(count: number): void {
-      if (count > MAX_ANIMATION_ITERATIONS) {
-        throw new Error(ERROR_MESSAGES.PARTICLE_COUNT_EXCEEDED);
-      }
-    }
-    
-    /**
-     * Initialize canvas for rendering
-     */
-    protected initializeCanvas(): void {
-      this.canvas = document.createElement("canvas");
-      this.assertCanvasCreated(this.canvas);
-      
-      this.canvas.width = this.container.clientWidth;
-      this.canvas.height = this.container.clientHeight;
-      this.canvas.style.position = "absolute";
-      this.canvas.style.top = "0";
-      this.canvas.style.left = "0";
-      this.canvas.style.pointerEvents = "none";
-      this.canvas.id = "magic-canvas";
-      
-      this.ctx = this.canvas.getContext("2d");
-      this.assertContextAcquired(this.ctx);
-      
-      this.container.appendChild(this.canvas);
-    }
-    
-    /**
-     * Assert that canvas was created successfully
-     * @param canvas - Canvas to check
-     */
-    protected assertCanvasCreated(canvas: HTMLCanvasElement | null): void {
-      if (!canvas) {
-        throw new Error(ERROR_MESSAGES.CANVAS_CREATION_FAILED);
-      }
-    }
-    
-    /**
-     * Assert that context was acquired successfully
-     * @param ctx - Context to check
-     */
-    protected assertContextAcquired(ctx: CanvasRenderingContext2D | null): void {
-      if (!ctx) {
-        throw new Error(ERROR_MESSAGES.CONTEXT_ACQUISITION_FAILED);
-      }
-    }
-    
-    /**
-     * Assert that animation loop hasn't exceeded maximum iterations
-     */
-    protected assertAnimationLoopCount(): void {
-      if (this.iterationCount > MAX_ANIMATION_ITERATIONS) {
-        this.dispose();
-        throw new Error(ERROR_MESSAGES.ANIMATION_LOOP_EXCEEDED);
-      }
+  /**
+   * Load assets for particles
+   */
+  private async loadAssets(): Promise<void> {
+    if (this.options.assetPaths && this.options.assetPaths.length > 0) {
+      this.assets = await AssetLoader.loadAssets(this.options.assetPaths);
     }
   }
   
+  /**
+   * Create particle objects
+   */
+  private createParticles(): void {
+    if (!this.canvas) {
+      throw new Error("Canvas not initialized");
+    }
+    
+    this.particles = ParticleFactory.createParticles(
+      this.options,
+      this.canvas.width,
+      this.canvas.height,
+      this.assets
+    );
+  }
+  
+  /**
+   * Start the animation loop
+   */
+  public start(): void {
+    if (this.isRunning) return;
+    
+    this.isRunning = true;
+    this.lastFrameTime = performance.now();
+    this.animationLoop();
+  }
+  
+  /**
+   * Stop the animation loop
+   */
+  public stop(): void {
+    this.isRunning = false;
+    
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+      this.animationFrameId = null;
+    }
+  }
+  
+  /**
+   * Main animation loop
+   */
+  private animationLoop = (): void => {
+    // Safety check against infinite loops
+    this.iterationCount++;
+    this.assertAnimationLoopCount();
+    
+    // Calculate delta time
+    const now = performance.now();
+    const deltaTime = now - this.lastFrameTime;
+    this.lastFrameTime = now;
+    
+    // Clear canvas
+    if (this.canvas && this.ctx) {
+      CanvasRenderer.clearCanvas(this.ctx, this.canvas.width, this.canvas.height);
+      
+      // Update particles
+      this.updateParticles(deltaTime);
+      
+      // Render particles
+      this.renderParticles();
+    }
+    
+    // Continue loop if running
+    if (this.isRunning) {
+      this.animationFrameId = requestAnimationFrame(this.animationLoop);
+    }
+  };
+  
+  /**
+   * Update particle positions and states
+   * @param deltaTime - Time since last update
+   */
+  private updateParticles(deltaTime: number): void {
+    if (!this.canvas) return;
+    
+    // Categorize particle types
+    const fallingTypes = [
+      ParticleType.SNOW,
+      ParticleType.RAIN,
+      ParticleType.LEAF,
+      ParticleType.SAKURA,
+      ParticleType.MONEY,
+      ParticleType.STAR,
+      ParticleType.CONFETTI,
+      ParticleType.HEART_FALLING
+    ];
+    
+    const floatingTypes = [
+      ParticleType.BUBBLE,
+      ParticleType.FIREFLY,
+      ParticleType.CLOUD,
+      ParticleType.BALLOON,
+      ParticleType.PARTICLE,
+      ParticleType.BUTTERFLY,
+      ParticleType.HEART_FLOATING
+    ];
+    
+    const rotating = [
+      ParticleType.GEARS,
+      ParticleType.CLOCK_HANDS,
+      ParticleType.ROTATING_STARS,
+      ParticleType.MOONS
+    ]
+    const orbiting = [
+      ParticleType.PLANETS,
+      ParticleType.ATOMS
+    ]
+    const interactive = [
+      ParticleType.INTERACTIVE_PARTICLES,
+      ParticleType.SOUND_RESPONSIVE,
+      ParticleType.COLOR_CHANGING
+    ]
+    const seasonal = [
+      ParticleType.HALLOWEEN,
+      ParticleType.CHRISTMAS,
+      ParticleType.VALENTINES_DAY
+    ]
+    const nature = [
+      ParticleType.WATER_RIPPLE,
+      ParticleType.POLLEN,
+      ParticleType.FEATHERS
+    ]
+    const abstract = [
+      ParticleType.GEOMETRIC_SHAPES,
+      ParticleType.LIQUID_SIMULATION,
+      ParticleType.LIGHT_TRAILS
+    ]
+    
+    // Update with appropriate effect
+    if (fallingTypes.includes(this.type)) {
+      FallingEffect.updateParticles(
+        this.particles,
+        this.options,
+        this.canvas.width,
+        this.canvas.height,
+        deltaTime
+      );
+    } else if (floatingTypes.includes(this.type)) {
+      FloatingEffect.updateParticles(
+        this.particles,
+        this.options,
+        this.canvas.width,
+        this.canvas.height,
+        deltaTime
+      );
+    } else {
+      // Default to falling behavior
+      FallingEffect.updateParticles(
+        this.particles,
+        this.options,
+        this.canvas.width,
+        this.canvas.height,
+        deltaTime
+      );
+    }
+  }
+  
+  /**
+   * Render all particles
+   */
+  private renderParticles(): void {
+    if (!this.ctx) return;
+    
+    // Get render mode
+    const renderMode = this.options.renderMode || RenderMode.CANVAS;
+    
+    // Render each particle
+    for (const particle of this.particles) {
+      this.ctx.save();
+      this.ctx.globalAlpha = particle.opacity;
+      this.ctx.translate(particle.x, particle.y);
+      this.ctx.rotate(particle.rotation * Math.PI / 180);
+      
+      // Choose rendering method based on mode
+      switch (renderMode) {
+        case RenderMode.CANVAS:
+          CanvasRenderer.renderParticle(this.ctx, particle, this.type);
+          break;
+        case RenderMode.SVG:
+          AssetRenderer.renderSvgParticle(this.ctx, particle);
+          break;
+        case RenderMode.IMAGE:
+          AssetRenderer.renderImageParticle(this.ctx, particle);
+          break;
+        default:
+          CanvasRenderer.renderParticle(this.ctx, particle, this.type);
+      }
+      
+      this.ctx.restore();
+    }
+  }
+  
+  /**
+   * Clean up resources
+   */
+  public dispose(): void {
+    // Stop animation
+    this.stop();
+    
+    // Remove canvas
+    if (this.canvas && this.canvas.parentNode) {
+      this.canvas.parentNode.removeChild(this.canvas);
+    }
+    
+    // Clear arrays
+    this.particles = [];
+    this.assets = [];
+    
+    // Set disposed flag
+    this.isDisposed = true;
+  }
+}
+
+// Export types
+export { ParticleType, ParticleOptions, RenderMode };

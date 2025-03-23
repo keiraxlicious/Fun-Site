@@ -1,0 +1,8 @@
+.custom-cursor {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    background: url('/assets/normal.ani');
+    pointer-events: none; /* Ensures it doesn't block clicks */
+    z-index: 9999;
+}

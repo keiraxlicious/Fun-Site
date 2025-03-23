@@ -1,0 +1,19 @@
+
+/*** Icons (keep in overlayPanel.css) ***/
+[class^="icon-"]::before {
+    font-size: 1.1em;
+    vertical-align: middle;
+}
+
+.icon-snow::before { content: "❄️"; }
+.icon-rain::before { content: "🌧️"; }
+.icon-leaf::before { content: "🍂"; }
+.icon-sakura::before { content: "🌸"; }
+.icon-money::before { content: "💰"; }
+.icon-star::before { content: "⭐"; }
+.icon-heart::before { content: "❤️"; }
+.icon-bubble::before { content: "🫧"; }
+.icon-firefly::before { content: "✨"; }
+.icon-cloud::before { content: "☁️"; }
+.icon-disable::before { content: "🚫"; }
+.icon-default::before { content: "🔮"; }

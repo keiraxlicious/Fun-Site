@@ -1,0 +1,103 @@
+:root {
+    /* Primary Theme Colors */
+    --color-pink: #ff9ad2;
+    --color-pink-light: #ffb1dd;
+    --color-pink-dark: #d07aa8;
+    --color-pink-transparent: rgba(255, 154, 210, 0.2);
+    
+    --color-gold: #ffd700;
+    --color-gold-light: #ffdf4d;
+    --color-gold-dark: #ccac00;
+    --color-gold-transparent: rgba(255, 215, 0, 0.2);
+    
+    --color-turquoise: #17d8c3;
+    --color-turquoise-light: #40e6d3;
+    --color-turquoise-dark: #12b09e;
+    --color-turquoise-transparent: rgba(23, 216, 195, 0.2);
+    
+    --color-teal: #008080;
+    --color-teal-light: #00a3a3;
+    --color-teal-dark: #006666;
+    --color-teal-transparent: rgba(0, 128, 128, 0.2);
+    
+    --color-dark-green: #024e4e;
+    
+    /* Blue accent (from current code) */
+    --color-blue: #66bbff;
+    --color-blue-transparent: rgba(102, 187, 255, 0.2);
+    
+    /* Red accent (from current code) */
+    --color-red: rgba(255, 120, 120, 0.8);
+    --color-red-transparent: rgba(255, 120, 120, 0.3);
+    
+    /* Background Colors */
+    --bg-main: #111;
+    --bg-card: rgba(10, 10, 30, 0.8);
+    --bg-sidebar: rgba(10, 10, 30, 0.9);
+    --bg-element: rgba(0, 0, 0, 0.3);
+    --bg-element-hover: rgba(23, 216, 195, 0.2);
+    --bg-element-active: rgba(102, 187, 255, 0.15);
+    
+    /* Text Colors */
+    --text-primary: white;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --text-muted: rgba(255, 255, 255, 0.5);
+    
+    /* Border Colors */
+    --border-light: rgba(255, 255, 255, 0.1);
+    --border-medium: rgba(255, 255, 255, 0.2);
+    
+    /* Default desired button size on larger displays (e.g., 1440p) */
+    --button-size-base: min(225px, 30vw);
+    --button-size: clamp(140px, var(--button-size-base), 225px);
+    --button-gap: clamp(10px, 2vw, 20px);
+    /* Typography */
+    
+    --font-decorative: 'Montserrat', sans-serif;
+    --font-main: 'Crimson Text', serif;
+    
+    /* Font Sizes */
+    --font-size-xs: clamp(0.75rem, 1vw, 0.875rem);
+    --font-size-sm: clamp(0.875rem, 1.2vw, 1rem);
+    --font-size-md: clamp(1rem, 1.5vw, 1.125rem);
+    --font-size-lg: clamp(1.125rem, 2vw, 1.25rem);
+    --font-size-xl: clamp(1.25rem, 3vw, 1.5rem);
+    --font-size-xxl: clamp(1.5rem, 4vw, 2.25rem);
+    
+    /* Spacing */
+    --spacing-xs: clamp(0.25rem, 0.5vw, 0.313rem);  /* ~5px at 16px base */
+    --spacing-sm: clamp(0.5rem, 1vw, 0.625rem);    /* ~10px */
+    --spacing-md: clamp(0.75rem, 1.5vw, 0.938rem); /* ~15px */
+    --spacing-lg: clamp(1rem, 2vw, 1.25rem);       /* ~20px */
+    --spacing-xl: clamp(1.5rem, 3vw, 1.875rem);    /* ~30px */
+    --spacing-xxl: clamp(2rem, 4vw, 2.5rem);       /* ~40px */
+    
+    /* Border Radius */
+    --radius-sm: 0.25rem;   /* ~4px */
+    --radius-md: 0.625rem;  /* ~10px */
+    --radius-lg: 0.938rem;  /* ~15px */
+    --radius-xl: 1.25rem;   /* ~20px */
+    --radius-circle: 50%;
+    
+    /* Shadows (rem-based offsets) */
+    --shadow-sm: 0 0.125rem 0.313rem rgba(0, 0, 0, 0.2);   /* 0 2px 5px */
+    --shadow-md: 0 0.313rem 0.938rem rgba(0, 0, 0, 0.3);  /* 0 5px 15px */
+    --shadow-lg: 0 0.625rem 1.875rem rgba(0, 0, 0, 0.5);  /* 0 10px 30px */
+    --shadow-pink: 0 0 1.25rem var(--color-pink);         /* 0 0 20px */
+    --shadow-turquoise: 0 0 0.938rem var(--color-turquoise); /* 0 0 15px */
+    
+    /* Transitions */
+    --transition-fast: all 0.2s ease;
+    --transition-medium: all 0.3s ease;
+    --transition-slow: all 0.5s ease;
+    --transition-bounce: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --transition-slide: right 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+    
+    /* Z-indices */
+    --z-background: 1;
+    --z-content: 10;
+    --z-overlay: 50;
+    --z-foreground: 80;
+    --z-sidebar: 90;
+    --z-controls: 100;
+}

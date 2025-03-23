@@ -1,0 +1,10 @@
+/* variables.css */
+:root {
+    --color-pink: #ff9ad2;
+    --color-gold: #d4af37;
+    --color-turquoise: #17d8c3;
+    --color-teal: #2a5956;
+    --color-dark-green: #1a3b38;
+    --card-bg: rgba(26, 59, 56, 0.9);
+    --font-main: 'Crimson Pro', serif;
+}

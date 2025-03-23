@@ -1,0 +1,351 @@
+/* Floating elements for decorative effect */
+.floating-decoration {
+    position: absolute;
+    pointer-events: none;
+    animation: float 6s ease-in-out infinite;
+    opacity: 0.2;
+    z-index: var(--z-background);
+}
+
+/* Apothecary-themed decorative elements */
+.potion-bubble {
+    position: absolute;
+    pointer-events: none;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at 30% 30%,
+        rgba(255, 255, 255, 0.6),
+        rgba(23, 216, 195, 0.3)
+    );
+    box-shadow: 0 0 15px var(--color-turquoise-transparent);
+    animation: bubbleRise 15s ease-in-out infinite;
+}
+
+/* .herb-decoration {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-image: url('/assets/images/herb-icon.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.15;
+    transform: rotate(var(--random-rotate));
+    animation: float calc(5s + var(--random-duration)) ease-in-out infinite;
+} */
+
+/* .mortar-decoration {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-image: url('/assets/images/mortar-icon.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.15;
+    transform: rotate(var(--random-rotate));
+    animation: float calc(7s + var(--random-duration)) ease-in-out infinite;
+} */
+
+/* Glowing corners for card elements - Apothecary theme */
+.glowing-border {
+    position: relative;
+}
+
+.glowing-border::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    width: calc(100% + 6px);
+    height: calc(100% + 6px);
+    background: linear-gradient(
+        45deg,
+        var(--color-turquoise) 0%,
+        transparent 40%,
+        transparent 60%,
+        var(--color-pink) 100%
+    );
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0.5;
+    animation: potionGlow 4s ease-in-out infinite;
+}
+
+/* Decorative potion bottle */
+.potion-bottle {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 40px;
+    height: 60px;
+    background-color: rgba(23, 216, 195, 0.1);
+    clip-path: path('M20,0 L30,10 L30,40 Q30,60 20,60 Q10,60 10,40 L10,10 Z');
+    animation: potionGlow 4s ease-in-out infinite;
+    opacity: 0.3;
+}
+
+.potion-bottle::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(
+        to top,
+        var(--color-pink-transparent),
+        var(--color-turquoise-transparent)
+    );
+    animation: fadeIn 1s ease;
+}
+
+.potion-liquid {
+    position: absolute;
+    bottom: 0;
+    left: 5px;
+    width: 30px;
+    height: 30px;
+    background: var(--color-pink-transparent);
+    border-radius: 0 0 15px 15px;
+    animation: potionGlow 3s ease-in-out infinite alternate;
+}
+
+
+/* Bubble effect for interactive elements */
+.bubble-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.bubble-effect::before {
+    content: '';
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.bubble-effect:hover::before {
+    opacity: 1;
+}
+
+/* Create bubbles on hover */
+.bubble-effect:hover::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: transparent;
+    animation: createBubbles 3s linear infinite;
+}
+
+@keyframes createBubbles {
+    0% {
+        box-shadow: 
+            calc(var(--random-x1, 20%) + 0px) -5px 0 2px var(--color-turquoise-transparent),
+            calc(var(--random-x2, 40%) + 0px) -5px 0 2px var(--color-pink-transparent),
+            calc(var(--random-x3, 60%) + 0px) -5px 0 2px var(--color-gold-transparent),
+            calc(var(--random-x4, 80%) + 0px) -5px 0 2px var(--color-turquoise-transparent);
+        transform: translateY(0);
+        opacity: 1;
+    }
+    
+    100% {
+        box-shadow: 
+            calc(var(--random-x1, 20%) + 10px) -80px 0 2px var(--color-turquoise-transparent),
+            calc(var(--random-x2, 40%) + -10px) -60px 0 2px var(--color-pink-transparent),
+            calc(var(--random-x3, 60%) + 15px) -70px 0 2px var(--color-gold-transparent),
+            calc(var(--random-x4, 80%) + -5px) -50px 0 2px var(--color-turquoise-transparent);
+        transform: translateY(-80px);
+        opacity: 0;
+    }
+}
+
+/* Pulsing glow effect for profile picture */
+.profile-picture-theme {
+    animation: 
+        float 6s ease-in-out infinite,
+        pulseGlow 4s ease-in-out infinite;
+}
+
+/* Menu icon glow effect */
+.sidebar-toggle-theme {
+    animation: pulseGlow 4s ease-in-out infinite;
+}
+
+/* Dots for profile card with pulsing effect */
+.dot-pattern {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image: radial-gradient(
+        var(--color-turquoise-transparent) 1px,
+        transparent 1px
+    );
+    background-size: 20px 20px;
+    opacity: 0.2;
+    z-index: -1;
+    animation: dotPulse 4s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+    0%, 100% {
+        opacity: 0.1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.3;
+        transform: scale(1.05);
+    }
+}
+
+
+/* Glowing dots */
+.glowing-dot {
+    position: absolute;
+    border-radius: 50%;
+    background-color: var(--color-turquoise-transparent);
+    z-index: 1;
+    animation: pulseDot 3s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes pulseDot {
+    0% {
+        transform: scale(1);
+        opacity: 0.3;
+        filter: blur(2px);
+    }
+    100% {
+        transform: scale(1.5);
+        opacity: 0.7;
+        filter: blur(3px);
+    }
+}
+
+/* Custom cursor */
+.custom-cursor {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    background-color: var(--color-turquoise);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background-color 0.2s;
+    mix-blend-mode: screen;
+}
+
+.cursor-bg {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(
+        circle,
+        var(--color-turquoise-transparent) 0%,
+        transparent 70%
+    );
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s, opacity 0.3s;
+    opacity: 0.5;
+}
+
+.custom-cursor.cursor-active {
+    width: 18px;
+    height: 18px;
+    background-color: var(--color-pink);
+    animation: cursorPulse 1s infinite alternate;
+}
+
+.cursor-bg.cursor-active {
+    width: 70px;
+    height: 70px;
+    opacity: 0.7;
+}
+
+@keyframes cursorPulse {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    100% { transform: translate(-50%, -50%) scale(1.2); }
+}
+
+/* Enhanced profile picture */
+.profile-picture-theme {
+    transition: transform 0.2s;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+/* Pulsing glow effects */
+.sidebar-toggle-theme {
+    overflow: visible;
+    position: relative;
+}
+
+.sidebar-toggle-theme::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: 50%;
+    background: conic-gradient(
+        var(--color-turquoise),
+        var(--color-pink),
+        var(--color-gold),
+        var(--color-turquoise)
+    );
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s;
+    animation: rotateConic 2s linear infinite;
+    animation-iteration-count:infinite;
+}
+
+.sidebar-toggle-theme:hover::before {
+    opacity: 0.7;
+}
+
+/* Add pulsing effect to search bar */
+.search-container-theme {
+    position: relative;
+}
+
+.search-container-theme::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border-radius: 30px;
+    z-index: -1;
+    background: linear-gradient(
+        45deg,
+        var(--color-turquoise),
+        var(--color-pink),
+        var(--color-gold),
+        var(--color-turquoise)
+    );
+    background-size: 300% 300%;
+    animation: gradientMove 2s ease infinite;
+    animation-iteration-count:infinite;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.search-container-theme:focus-within::after {
+    opacity: 0.7;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}

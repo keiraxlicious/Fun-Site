@@ -1,0 +1,493 @@
+.icon{
+    z-index: var(--z-controls);
+    filter: invert(100%) drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5)); /* Combined filters */
+}
+.icon::before{
+    animation: spin 0.14s linear infinite;
+}
+.icon:hover::before{
+    animation: random-spin 0.14s linear infinite;
+}
+.icon::after{
+    animation: reverse-spin 0.14s linear infinite;
+}
+
+/* Sidebar toggle */
+.sidebar-toggle-theme {
+    position: fixed;
+    /* top: -525px;
+    right: -775px; */
+    top: 0;
+    right: 0;
+    z-index: var(--z-controls);
+    width: 75px;
+    height: 75px;
+    border-radius: var(--radius-circle);
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: url('/assets/normal.ani'), auto;
+    box-shadow: 0 0 10px var(--color-pink-transparent);
+    transition: var(--transition-medium);
+    border: 1px solid var(--color-teal-transparent);
+}
+.sidebar-toggle-theme::before {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px var(--color-pink);
+}
+.sidebar-toggle-theme:hover {
+    transform: scale(1.1);
+    background-color: var(--color-turquoise-transparent);
+    box-shadow: 0 0 15px var(--color-pink);
+}
+.sidebar-toggle-theme.spin {
+    animation: spin 1s linear infinite;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+.sidebar-toggle-theme.spin {
+    animation: reverse-spin 4s linear infinite;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.sidebar-toggle-theme img {
+    width: 75px;
+    height: 75px;
+    filter: invert(100%);
+}
+/* Social button: Enforced square dimensions and premium styling */
+.social-button-theme {
+    width: 100%;
+    height: 0;
+    border-radius: var(--radius-lg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: url('/assets/normal.ani'), auto;
+    padding-bottom: 100%; /* Makes height equal to width */
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-turquoise-transparent);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: 
+        transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+        box-shadow 0.3s ease,
+        filter 0.3s ease;
+    background-size: 400% 400%;
+    animation: gradientFlow 8s infinite linear;
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+    --hue: 210;
+  }
+
+.social-button-theme .liquid-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0; 
+    background: linear-gradient(
+        135deg,
+        var(--color-turquoise-dark) 0%,
+        var(--color-teal-dark) 50%,
+        var(--color-pink-dark) 100%
+    );
+    z-index: var(--z-content); 
+    transition: height 0.6s ease, top 0.6s ease;
+    opacity: .8; 
+}
+
+
+/* Hover state for liquid fill */
+.social-button-theme:hover .liquid-fill {
+    height: 100%; /* Fill the entire button */
+    bottom: 0; /* Ensure it covers the button from bottom to top */
+}
+
+/* Reverse the liquid fill when hover ends */
+.social-button-theme:not(:hover) .liquid-fill {
+    height: 0; /* Reset to no height */
+    bottom: 0; /* Reset to the bottom */
+}
+/* .social-button-theme::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(255, 255, 255, 0.4),
+        transparent 80%
+    );
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    z-index: var(--z-controls);
+    filter: blur(8px);
+} */
+.social-button-theme::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg,
+        var(--color-dark-green) 0%,
+        var(--color-teal-dark) 50%,
+        var(--color-turquoise-dark) 100%
+    );
+    z-index: var(--z-background);
+    clip-path: inset(100% 0 0 0);
+    transition: clip-path 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0.9;
+}
+
+.social-button-theme::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-lg);
+    padding: 2px;
+    background: linear-gradient(
+        45deg,
+        var(--color-turquoise) 0%,
+        var(--color-pink) 50%,
+        var(--color-gold) 100%
+    );
+    mask: 
+        linear-gradient(#000 0 0) content-box, 
+        linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: var(--z-background);
+}
+
+.social-button-theme:hover {
+    transform: scale(1.05) rotate(3deg) translateY(-5px) translateZ(10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px var(--color-turquoise-transparent);
+    filter: brightness(1.1);
+}
+
+/* .social-button-theme:hover::before {
+    opacity: 0.8;
+} */
+
+.social-button-theme:hover::before {
+    clip-path: inset(0% 0% 0% 0%);
+    background: linear-gradient(
+        135deg,
+        var(--color-turquoise-dark) 0%,
+        var(--color-teal-dark) 50%,
+        var(--color-pink-dark) 100%
+    );
+    
+}
+.social-button-theme:hover::after {
+    opacity: 1;
+}
+
+.social-button-theme:active {
+    transform: scale(0.95);
+    filter: brightness(0.9);
+}
+
+.social-button-theme img,
+.social-button-theme svg {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    filter: invert(100%) drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5)); /* Combined filters */
+    transition: transform 0.3s ease;
+    z-index: var(--z-content);
+}
+
+/* Potion effects */
+.potion-glow::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: var(--radius-lg);
+    background: conic-gradient(
+        var(--color-turquoise),
+        var(--color-pink),
+        var(--color-gold),
+        var(--color-turquoise)
+    );
+    z-index: var(--z-background);
+    opacity: 0;
+    transition: opacity 0.5s;
+    animation: rotateConic 3s linear infinite;
+}
+
+.potion-bubble-particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: var(--z-controls);
+    animation: bubbleFloat 2s ease-out forwards;
+}
+
+/* Category tabs */
+.category-tab {
+    padding: 6px 12px;
+    border: none;
+    border-radius: var(--radius-sm);
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    cursor: url('/assets/normal.ani'), auto;
+    transition: var(--transition-fast);
+}
+
+.category-tab.active {
+    background-color: var(--color-blue-transparent);
+    color: var(--color-blue);
+    font-weight: 500;
+}
+
+.category-tab:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Effect option buttons */
+.effect-actions button {
+    background: none;
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-sm);
+    padding: 4px 8px;
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+    cursor: url('/assets/normal.ani'), auto;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.apply-btn {
+    background-color: var(--color-blue-transparent) !important;
+    color: var(--color-blue) !important;
+}
+
+.apply-btn:hover {
+    background-color: rgba(102, 187, 255, 0.3) !important;
+}
+
+.view-btn:hover, .disable-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.disable-btn {
+    color: var(--color-red) !important;
+    border-color: var(--color-red-transparent) !important;
+}
+
+/* OBS button */
+.obs-button {
+    background-color: var(--bg-element);
+    border: 2px solid var(--color-turquoise);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    padding: var(--spacing-sm) var(--spacing-md);
+    cursor: url('/assets/normal.ani'), auto;
+    transition: var(--transition-medium);
+    font-size: var(--font-size-sm);
+    position: relative;
+    overflow: hidden;
+}
+
+.obs-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--color-turquoise-transparent), transparent);
+    transition: var(--transition-medium);
+}
+
+.obs-button:hover:not([disabled])::before {
+    left: 100%;
+}
+
+.obs-button:hover:not([disabled]) {
+    background-color: var(--color-turquoise-transparent);
+    border-color: var(--color-pink);
+    transform: translateY(-2px);
+}
+
+.obs-button:active:not([disabled]) {
+    transform: translateY(1px);
+}
+
+.obs-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Overlay option */
+.overlay-option {
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--bg-element);
+    border-radius: 20px;
+    cursor: url('/assets/normal.ani'), auto;
+    transition: var(--transition-medium);
+    border: 1px solid transparent;
+}
+
+.overlay-option:hover {
+    background-color: var(--color-pink-transparent);
+    border-color: var(--color-turquoise);
+}
+
+.overlay-option.active {
+    background-color: var(--color-turquoise-transparent);
+    border-color: var(--color-pink);
+}
+
+/* Render mode option */
+.render-mode-option {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-sm);
+    background-color: rgba(255, 255, 255, 0.05);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: url('/assets/normal.ani'), auto;
+    text-align: left;
+    transition: var(--transition-fast);
+}
+
+.render-mode-option:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.render-mode-option.active {
+    background-color: var(--color-blue-transparent);
+    border-left: 3px solid var(--color-blue);
+}
+
+/* Sidebar items */
+.sidebar-item {
+    padding: var(--spacing-md) var(--spacing-lg);
+    margin-bottom: var(--spacing-sm);
+    border-radius: var(--radius-md);
+    background-color: var(--bg-element);
+    color: var(--text-primary);
+    cursor: url('/assets/normal.ani'), auto;
+    transition: var(--transition-medium);
+    font-size: var(--font-size-lg);
+    border-left: 3px solid transparent;
+}
+
+.sidebar-item:hover {
+    background-color: var(--color-turquoise-transparent);
+    transform: translateX(5px);
+    border-left: 3px solid var(--color-pink);
+}
+
+.sidebar-item::before {
+    content: "⚗️";
+    margin-right: var(--spacing-sm);
+    opacity: 0.7;
+}
+
+.sidebar-item:nth-child(2)::before {
+    content: "🧪";
+}
+
+.sidebar-item:nth-child(3)::before {
+    content: "🌿";
+}
+
+.sidebar-item:nth-child(4)::before {
+    content: "🔮";
+}
+
+/* Button animations */
+.button-pop {
+    animation: buttonPop 0.3s ease forwards;
+}
+
+.bubble-effect::after {
+    content: "";
+    position: absolute;
+    background: radial-gradient(
+        circle at center,
+        var(--color-turquoise-transparent),
+        transparent 70%
+    );
+    border-radius: 50%;
+    width: 150%;
+    height: 150%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    z-index: var(--z-controls);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                opacity 0.5s;
+}
+.bubble-effect:hover::after {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+}
+.social-button-theme.potion-glow::before {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border-radius: var(--radius-lg);
+    background: 
+        radial-gradient(
+            circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+            var(--color-turquoise-transparent),
+            transparent 70%
+        ),
+        radial-gradient(
+            circle at calc(100% - var(--mouse-x, 50%)) calc(100% - var(--mouse-y, 50%)),
+            var(--color-pink-transparent),
+            transparent 70%
+        );
+    filter: blur(10px);
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: var(--z-background);
+}
+/* Bubble effect */
+.social-button-theme.bubble-effect::after {
+    content: '';
+    position: absolute;
+    background: radial-gradient(
+        circle at center,
+        var(--color-turquoise-transparent),
+        transparent 70%
+    );
+    border-radius: 50%;
+    width: 150%;
+    height: 150%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0); /* Start with no scale */
+    opacity: 0; /* Start invisible */
+    z-index: var(--z-controls); /* Ensure it's above the liquid fill and icon */
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                opacity 0.5s;
+}
+
+/* Activate bubble effect on hover */
+.social-button-theme:hover.bubble-effect::after {
+    transform: translate(-50%, -50%) scale(1); /* Expand the bubble */
+    opacity: 0.8; /* Make it visible */
+}

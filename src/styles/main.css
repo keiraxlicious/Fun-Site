@@ -1,38 +1,32 @@
-:root {
-    --color-pink: #ff9ad2;
-    --color-gold: #ffd700;
-    --color-turquoise: #17d8c3;
-    --color-teal: #008080;
-    --color-dark-green: #024e4e;
-    --card-bg: rgba(10, 10, 30, 0.8);
-    --font-main: 'Montserrat', sans-serif;
-}
+@import url('base/variables.css');
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* Import layouts */
+@import url('layout/containers.css');
+@import url('layout/grid.css');
 
-body {
-    font-family: var(--font-main);
-    background-color: #111;
-    color: white;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
+/* Import components */
+@import url('components/buttons.css');
+@import url('components/inputs.css');
+@import url('components/toggles.css');
+@import url('components/cards.css');
+@import url('components/charts.css');
+@import url('components/cursor.css');
 
-#particles-js {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-}
+/* Import animations */
+@import url('animations/keyframes.css');
+@import url('animations/transitions.css');
 
+
+/* Import features */
+@import url('features/sidebar.css');
+@import url('features/profile.css');
+@import url('features/search.css');
+
+/* Import effects */
+@import url('effects/particles.css');
+@import url('effects/overlays.css');
+@import url('effects/decorative.css');
+/* Import structure */
+@import url('layout/structure.css');
+@import url('base/reset.css');
+@import url('base/typography.css');

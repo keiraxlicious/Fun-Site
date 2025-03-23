@@ -33,7 +33,37 @@ export enum RenderMode {
     BALLOON = "balloon",
     PARTICLE = "particle",
     BUTTERFLY = "butterfly",
-    HEART_FLOATING = "heart_floating"
+    HEART_FLOATING = "heart_floating",
+    
+    // rotating particles
+    GEARS = "gears",
+    CLOCK_HANDS = "clock_hands",
+    ROTATING_STARS = "rotating_stars",
+    MOONS = "moons",
+    
+    // orbiting particles
+    PLANETS = "planets",
+    ATOMS = "atoms",
+    
+    // interactive particles
+    INTERACTIVE_PARTICLES = "interactive_particles",
+    SOUND_RESPONSIVE = "sound_r esponsive",
+    COLOR_CHANGING = "color_changing",
+    
+    // seasonal particles
+    HALLOWEEN = "halloween",
+    CHRISTMAS = "christmas",
+    VALENTINES_DAY = "valentines_day",
+    
+    // nature particles
+    WATER_RIPPLE = "water_ripple",
+    POLLEN = "pollen",
+    FEATHERS = "feathers",
+    
+    // abstract particles
+    GEOMETRIC_SHAPES = "geometric_shapes",
+    LIQUID_SIMULATION = "liquid_simulation",
+    LIGHT_TRAILS = "light_trails"
   }
   
   /**

@@ -1,0 +1,44 @@
+/* Search box */
+#search-box {
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 30px;
+    border: 2px solid var(--color-teal);
+    background-color: var(--bg-element);
+    color: var(--text-primary);
+    font-size: var(--font-size-md);
+    outline: none;
+    transition: var(--transition-medium);
+}
+
+#search-box:focus {
+    border-color: var(--color-pink);
+    box-shadow: 0 0 10px var(--color-turquoise-transparent);
+}
+
+#search-box::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+/* Add a potion bottle icon to search box */
+.search-container-theme {
+    position: relative;
+}
+
+.search-container-theme::after {
+    content: "⚗️";
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(10%);
+    font-size: 20px;
+    opacity: 0.5;
+    pointer-events: none;
+    transition: var(--transition-medium);
+}
+
+.search-container-theme:focus-within::after {
+    opacity: 0.8;
+    transform: scale(1.01);
+}

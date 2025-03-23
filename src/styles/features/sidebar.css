@@ -1,0 +1,81 @@
+/* Sidebar container */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: clamp(280px, 30vw, 400px); /* Responsive width */
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    background-color: var(--bg-sidebar);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: var(--z-sidebar);
+    overflow-y: auto;
+    border-left: 1px solid var(--border-light);
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.3);
+    padding: var(--spacing-lg);
+}
+.sidebar.open {
+    transform: translateX(0);
+}
+.sidebar.active {
+    right: 0; /* When active, position at right edge */
+}
+
+/* Add decorative apothecary-themed elements */
+.sidebar::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><path d="M30,10 C35,10 40,15 40,20 C40,25 35,30 30,30 C25,30 20,25 20,20 C20,15 25,10 30,10 Z M30,50 C35,50 40,45 40,40 C40,35 35,30 30,30 C25,30 20,35 20,40 C20,45 25,50 30,50 Z" stroke="rgba(23, 216, 195, 0.1)" fill="none"/></svg>');
+    opacity: 0.2;
+    pointer-events: none;
+}
+
+/* Sidebar content container */
+.sidebar-content {
+    padding: 80px 30px 30px 30px;
+    margin-top: 50px;
+    position: relative;
+}
+
+/* Add themed decorative elements */
+.sidebar-content::before {
+    content: "⚗️";
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    font-size: 24px;
+    opacity: 0.4;
+}
+
+.sidebar-content::after {
+    content: "🧪";
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 24px;
+    opacity: 0.4;
+}
+
+/* Sidebar panel */
+.sidebar-panel {
+    display: none;
+    padding: var(--spacing-lg);
+    margin-top: var(--spacing-lg);
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-teal-transparent);
+    box-shadow: var(--shadow-sm);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.sidebar-panel.active {
+    display: block;
+    animation: panelFadeIn 0.4s forwards;
+}

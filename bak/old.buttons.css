@@ -1,0 +1,694 @@
+
+/* Sidebar toggle */
+.sidebar-toggle {
+    position: fixed;
+    top: -20px;
+    right: -20px;
+    z-index: var(--z-controls);
+    width: 75px;
+    height: 75px;
+    border-radius: var(--radius-circle);
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: url('/assets/normal.ani'), auto;
+    box-shadow: 0 0 10px var(--color-pink-transparent);
+    transition: var(--transition-medium);
+    border: 1px solid var(--color-teal-transparent);
+}
+
+.sidebar-toggle:hover {
+    transform: scale(1.1);
+    animation: spin 1s linear;
+    box-shadow: 0 0 15px var(--color-pink);
+}
+
+.sidebar-toggle::after {
+    animation: spin .14s linear;
+    /* Maintain visibility during spin */
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.sidebar-toggle.spin {
+    animation: reverse-spin 1s linear;
+    /* Maintain visibility during spin */
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.sidebar-toggle img {
+    width: 75px;
+    height: 75px;
+    filter: invert(100%);
+}
+
+.social-button {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: var(--radius-lg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: url('/assets/normal.ani'), auto;
+    transition: var(--transition-bounce);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    /* background: linear-gradient(135deg, 
+                var(--color-dark-green) 0%, 
+                var(--bg-element) 100%); */
+    border: 1px solid var(--color-turquoise-transparent);
+}
+
+.social-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.2) 0%,
+        rgba(255, 255, 255, 0) 50%
+    ); */
+    z-index: 1;
+}
+
+.social-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: var(--transition-medium);
+}
+
+.social-button:hover {
+    transform: scale(1.05) rotate(3deg);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 15px var(--color-turquoise-transparent);
+    border-color: var(--color-pink);
+}
+
+.social-button:hover::after {
+    width: 200%;
+    height: 200%;
+    opacity: 1;
+}
+
+.social-button:active {
+    transform: scale(0.95);
+}
+
+.social-button img {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    filter: invert(100%);
+    z-index: var(--z-content);
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+    transition: var(--transition-medium);
+}
+
+.social-button:hover img {
+    transform: scale(1.1);
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.7));
+}
+
+.social-button svg {
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+    transition: var(--transition-medium);
+}
+
+.social-button:hover svg {
+    transform: scale(1.1);
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.7));
+}
+
+.button-pop {
+    animation: buttonPop 0.3s ease forwards;
+}
+
+/* Icon container */
+.icon-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    filter: invert(100%);
+}
+
+.icon-fallback {
+    font-size: var(--font-size-xl);
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.social-button-text-fallback {
+    color: var(--text-primary);
+    font-size: var(--font-size-sm);
+    font-weight: bold;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Category tabs */
+.category-tab {
+    padding: 6px 12px;
+    border: none;
+    border-radius: var(--radius-sm);
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    cursor: url('/assets/normal.ani'), auto;
+    transition: var(--transition-fast);
+}
+
+.category-tab.active {
+    background-color: var(--color-blue-transparent);
+    color: var(--color-blue);
+    font-weight: 500;
+}
+
+.category-tab:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Effect option buttons */
+.effect-actions button {
+    background: none;
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-sm);
+    padding: 4px 8px;
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+    cursor: url('/assets/normal.ani'), auto;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.apply-btn {
+    background-color: var(--color-blue-transparent) !important;
+    color: var(--color-blue) !important;
+}
+
+.apply-btn:hover {
+    background-color: rgba(102, 187, 255, 0.3) !important;
+}
+
+.view-btn:hover, .disable-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.disable-btn {
+    color: var(--color-red) !important;
+    border-color: var(--color-red-transparent) !important;
+}
+
+/* OBS button */
+.obs-button {
+    background-color: var(--bg-element);
+    border: 2px solid var(--color-turquoise);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    padding: var(--spacing-sm) var(--spacing-md);
+    cursor: url('/assets/normal.ani'), auto;
+    transition: var(--transition-medium);
+    font-size: var(--font-size-sm);
+    position: relative;
+    overflow: hidden;
+}
+
+.obs-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--color-turquoise-transparent), transparent);
+    transition: var(--transition-medium);
+}
+
+.obs-button:hover:not([disabled])::before {
+    left: 100%;
+}
+
+.obs-button:hover:not([disabled]) {
+    background-color: var(--color-turquoise-transparent);
+    border-color: var(--color-pink);
+    transform: translateY(-2px);
+}
+
+.obs-button:active:not([disabled]) {
+    transform: translateY(1px);
+}
+
+.obs-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Overlay option */
+.overlay-option {
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--bg-element);
+    border-radius: 20px;
+    cursor: url('/assets/normal.ani'), auto;
+    transition: var(--transition-medium);
+    border: 1px solid transparent;
+}
+
+.overlay-option:hover {
+    background-color: var(--color-pink-transparent);
+    border-color: var(--color-turquoise);
+}
+
+.overlay-option.active {
+    background-color: var(--color-turquoise-transparent);
+    border-color: var(--color-pink);
+}
+
+/* Render mode option */
+.render-mode-option {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-sm);
+    background-color: rgba(255, 255, 255, 0.05);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: url('/assets/normal.ani'), auto;
+    text-align: left;
+    transition: var(--transition-fast);
+}
+
+.render-mode-option:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.render-mode-option.active {
+    background-color: var(--color-blue-transparent);
+    border-left: 3px solid var(--color-blue);
+}
+
+/* Sidebar items */
+.sidebar-item {
+    padding: var(--spacing-md) var(--spacing-lg);
+    margin-bottom: var(--spacing-sm);
+    border-radius: var(--radius-md);
+    background-color: var(--bg-element);
+    color: var(--text-primary);
+    cursor: url('/assets/normal.ani'), auto;
+    transition: var(--transition-medium);
+    font-size: var(--font-size-lg);
+    border-left: 3px solid transparent;
+}
+
+.sidebar-item:hover {
+    background-color: var(--color-turquoise-transparent);
+    transform: translateX(5px);
+    border-left: 3px solid var(--color-pink);
+}
+
+/* Add apothecary themes to sidebar items */
+.sidebar-item::before {
+    content: "⚗️";
+    margin-right: var(--spacing-sm);
+    opacity: 0.7;
+}
+
+.sidebar-item:nth-child(2)::before {
+    content: "🧪";
+}
+
+.sidebar-item:nth-child(3)::before {
+    content: "🌿";
+}
+
+.sidebar-item:nth-child(4)::before {
+    content: "🔮";
+}
+
+
+
+/* Social buttons - with enhanced effects from your previous design */
+.social-button {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: var(--radius-lg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: url('/assets/normal.ani'), auto;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: 
+        transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+        box-shadow 0.3s ease,
+        filter 0.3s ease;
+    z-index: 2;
+    background-size: 400% 400%;
+    animation: gradientFlow 8s infinite linear;
+}
+
+/* Platform-specific styling */
+.social-button[data-platform="twitter"]::after:hover {
+    background: linear-gradient(
+        to right, 
+        #1DA1F2, /* Twitter Blue */
+        #0D8ECF, 
+        var(--color-turquoise),
+        var(--color-teal), 
+        var(--color-dark-green), 
+        var(--color-teal-light), 
+        var(--color-turquoise-light)
+    );
+    background-size: 400% 400%;
+    animation: reverse gradientFlow 8s infinite linear;
+}
+
+.social-button[data-platform="discord"]::after:hover {
+    background: linear-gradient(
+        to left, 
+        #5865F2, /* Discord Blurple */
+        #4854D4,  
+        var(--color-turquoise),
+        var(--color-teal), 
+        var(--color-dark-green),
+        var(--color-turquoise-light)
+    );
+    background-size: 400% 400%;
+    animation: reverse gradientFlow 8s infinite linear;
+}
+
+.social-button[data-platform="kofi"]::after:hover {
+    background: linear-gradient(
+        90deg,
+        #29ABE0, /* Ko-fi Blue */
+        var(--color-turquoise),  
+        var(--color-teal),
+        var(--color-dark-green),
+        var(--color-pink-dark),
+        var(--color-pink)
+    );
+    background-size: 400% 400%;
+    animation: reverse gradientFlow 6s infinite linear;
+}
+
+/* Add more platform-specific gradients as needed */
+
+/* Mouse-aware lighting effect */
+.social-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(255, 255, 255, 0.4),
+        transparent 80%
+    );
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    z-index: 2;
+    filter: blur(8px);
+}
+
+/* Button border gradient effect */
+.social-button::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-lg);
+    padding: 2px;
+    background: linear-gradient(
+        45deg,
+        var(--color-turquoise) 0%,
+        var(--color-pink) 50%,
+        var(--color-gold) 100%
+    );
+    mask: 
+        linear-gradient(#000 0 0) content-box, 
+        linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    -webkit-mask: 
+        linear-gradient(#000 0 0) content-box, 
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+/* Hover effects */
+.social-button:hover {
+    transform: scale(1.05) rotate(3deg) translateY(-5px) translateZ(10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 20px var(--color-turquoise-transparent);
+    filter: brightness(1.1);
+}
+
+.social-button:hover::before {
+    opacity: 0.8;
+}
+
+.social-button:hover::after {
+    opacity: 1;
+}
+
+/* Active state */
+.social-button:active {
+    transform: scale(0.95);
+    filter: brightness(0.9);
+    animation: clickBounce 0.5s ease forwards !important;
+}
+
+/* Button content */
+.social-button img,
+.social-button svg {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+    transition: transform 0.3s ease;
+    z-index: var(--z-content);
+}
+
+.social-button:hover img,
+.social-button:hover svg {
+    transform: scale(1.15);
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.7));
+}
+
+/* Potion glow effect for buttons */
+.social-button.potion-glow::before {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border-radius: var(--radius-lg);
+    background: 
+        radial-gradient(
+            circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+            var(--color-turquoise-transparent),
+            transparent 70%
+        ),
+        radial-gradient(
+            circle at calc(100% - var(--mouse-x, 50%)) calc(100% - var(--mouse-y, 50%)),
+            var(--color-pink-transparent),
+            transparent 70%
+        );
+    filter: blur(10px);
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.social-button.potion-glow:hover::before {
+    opacity: 1;
+}
+
+/* Button pop animation */
+.button-pop {
+    animation: buttonPop 0.3s ease forwards;
+}
+
+
+/* Button effects inspired by previous design */
+.social-button {
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+    --hue: 210;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+
+/* Mouse-aware lighting effect */
+.social-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-lg);
+    background: radial-gradient(
+        circle 60px at var(--mouse-x) var(--mouse-y),
+        rgba(255, 255, 255, 0.4),
+        transparent 80%
+    );
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.social-button:hover::before {
+    opacity: 1;
+}
+
+/* Enhanced hover effect */
+.social-button:hover {
+    transform: 
+        scale(1.05) 
+        rotate(3deg) 
+        translateY(-5px)
+        translateZ(20px);
+    box-shadow: 
+        0 15px 30px rgba(0, 0, 0, 0.4),
+        0 0 15px hsla(var(--hue), 100%, 50%, 0.3);
+}
+
+/* Click animation */
+.social-button.button-clicked {
+    animation: clickBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+
+
+/* Bubble Effect */
+.bubble-effect::after {
+    content: "";
+    position: absolute;
+    background: radial-gradient(
+        circle at center,
+        var(--color-turquoise-transparent),
+        transparent 70%
+    );
+    border-radius: 50%;
+    width: 150%;
+    height: 150%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    z-index: 1;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s;
+}
+
+.bubble-effect:hover::after {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+}
+
+/* Potion glow effect */
+.potion-glow {
+    overflow: visible;
+}
+
+.potion-glow::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: var(--radius-lg);
+    background: conic-gradient(
+        var(--color-turquoise),
+        var(--color-pink),
+        var(--color-gold),
+        var(--color-turquoise)
+    );
+    z-index: var(--z-background);
+    opacity: 0;
+    transition: opacity 0.5s;
+    animation: rotateConic 3s linear infinite;
+}
+
+.potion-glow:hover::before {
+    opacity: 0.7;
+}
+
+
+/* Potion bubbles when clicked */
+.potion-bubble-particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: var(--z-content);
+    animation: bubbleFloat 2s ease-out forwards;
+}
+
+
+/* Platform-specific themes */
+.social-button:nth-child(1) { --hue: 270; } /* Twitch/Purple */
+.social-button:nth-child(2) { --hue: 230; } /* Discord/Blue */
+.social-button:nth-child(3) { --hue: 0; } /* YouTube/Red */
+.social-button:nth-child(4) { --hue: 330; } /* Instagram/Pink */
+.social-button:nth-child(5) { --hue: 200; } /* Twitter/Blue */
+.social-button:nth-child(6) { --hue: 20; } /* Reddit/Orange */
+.social-button:nth-child(7) { --hue: 350; } /* TikTok/Red */
+.social-button:nth-child(8) { --hue: 210; } /* GitHub/Blue */
+.social-button:nth-child(9) { --hue: 180; } /* Ko-fi/Teal */
+
+
+.social-button::before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg,
+        var(--color-dark-green) 0%,
+        var(--color-teal-dark) 50%,
+        var(--color-turquoise-dark) 100%
+    );
+    z-index: var(--z-background);
+    clip-path: inset(100% 0% 0% 0%);
+    transition: clip-path 0.5s ease-in-out;
+}
+
+.social-button:hover::before {
+    clip-path: inset(0% 0% 0% 0%);
+    background: linear-gradient(
+        135deg,
+        var(--color-dark-green) 0%,
+        var(--color-teal-dark) 50%,
+        var(--color-turquoise-dark) 100%
+    );
+    z-index: var(--z-background);
+    animation: buttonFillPotion 0.6s forwards ease-in-out;
+}
+
+.social-button:active::before,
+.social-button:not(:hover)::before {
+    z-index: var(--z-background);
+    animation: buttonDrainPotion 0.6s forwards ease-in-out;
+}

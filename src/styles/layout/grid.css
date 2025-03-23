@@ -1,0 +1,60 @@
+/* Social buttons grid */
+.social-grid-theme {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+    z-index: var(--z-content);
+}
+
+/* Category selector */
+.category-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Effect selector */
+.effect-selector {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Render mode options */
+.render-mode-options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+/* Overlay selector */
+.overlay-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}
+
+/* Toggle container */
+.toggle-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Effect info layout */
+.effect-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+/* Effect actions layout */
+.effect-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+}

@@ -1,0 +1,76 @@
+/* Particle base styles */
+.particle {
+    position: absolute;
+    pointer-events: none;
+    z-index: var(--z-background);
+    will-change: transform, opacity;
+}
+
+/* Snow particles */
+.snow-particle {
+    background-color: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: snowFall linear infinite;
+}
+
+/* Rain particles */
+.rain-particle {
+    background: linear-gradient(transparent, rgba(23, 216, 195, 0.5));
+    width: 2px;
+    border-radius: 5px;
+    animation: rainFall linear infinite;
+}
+
+/* Leaf particles */
+.leaf-particle {
+    background-color: transparent;
+    /* background-image: url('/assets/images/leaf.svg'); */
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: floatLeaf ease-in-out infinite;
+}
+
+/* Sakura particles */
+.sakura-particle {
+    background-color: transparent;
+    /* background-image: url('/assets/images/sakura.svg'); */
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: floatLeaf ease-in-out infinite;
+}
+
+/* Bubble particles - new for apothecary theme */
+.bubble-particle {
+    border-radius: 50%;
+    background: linear-gradient(
+        135deg,
+        rgba(23, 216, 195, 0.1),
+        rgba(23, 216, 195, 0.4)
+    );
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 5px rgba(23, 216, 195, 0.2);
+    animation: bubbleRise ease-out infinite;
+}
+
+/* Potion drops - new for apothecary theme */
+.potion-drop {
+    background: radial-gradient(
+        circle at center,
+        var(--color-pink-transparent),
+        var(--color-turquoise-transparent)
+    );
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    animation: fallDown ease-in infinite;
+    box-shadow: 0 0 8px var(--color-pink-transparent);
+}
+
+/* Herbs - new for apothecary theme */
+/* .herb-particle {
+    background-color: transparent;
+    background-image: url('/assets/images/herb.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: floatLeaf ease-in-out infinite;
+    filter: hue-rotate(random(360) + deg);
+} */

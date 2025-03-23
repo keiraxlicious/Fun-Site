@@ -1,0 +1,71 @@
+/* overlays.css - Visual effects */
+.profile-card {
+    box-shadow: 0 0.625rem 1.875rem rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--color-turquoise);
+}
+
+.social-button-theme {
+    box-shadow: 0 0.3125rem 0.9375rem rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.2) 0%, 
+        rgba(255, 255, 255, 0) 50%);
+}
+
+.overlay-option {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+}
+
+.toggle-label {
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 0.5rem rgba(255, 255, 255, 0.1);
+}
+
+#magic-canvas {
+    background: linear-gradient(
+        45deg,
+        rgba(23, 216, 195, 0.05) 0%,
+        rgba(255, 154, 210, 0.03) 100%
+    );
+}
+
+.obs-button {
+    border: 2px solid;
+    backdrop-filter: blur(4px);
+}
+
+
+
+/*** Overlays (add to overlays.css) ***/
+.category-tab {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.category-tab.active {
+    background: rgba(23, 216, 195, 0.2);
+    border-color: var(--color-pink);
+    color: var(--color-turquoise);
+}
+
+.effect-option {
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 3px solid transparent;
+}
+
+.effect-option.active {
+    background: rgba(23, 216, 195, 0.15);
+    border-color: var(--color-pink);
+}
+
+.apply-btn {
+    background: rgba(23, 216, 195, 0.2) !important;
+    color: var(--color-turquoise) !important;
+    border-color: currentColor;
+}
+
+.disable-btn {
+    color: rgba(255, 120, 120, 0.8) !important;
+    border-color: rgba(255, 120, 120, 0.3) !important;
+}

@@ -2,9 +2,9 @@
 <html lang="en">
 <base href="./">"
 <head>
-
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> -->
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
     <meta property="og:title" content="Your Premium Website Title" />
     <meta property="og:description" content="A high-quality website built with premium standards." />
     <meta property="og:image" content="https://example.com/images/og-image.png" />
@@ -16,14 +16,8 @@
     <meta name="twitter:image" content="https://example.com/images/twitter-image.png" />
 
     <title>Premium Portfolio</title>
-    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
     <link rel="stylesheet" href="src/styles/main.css">
-    <link rel="stylesheet" href="src/styles/sidebar.css">
-    <link rel="stylesheet" href="src/styles/profileCard.css">
-    <link rel="stylesheet" href="src/styles/buttons.css">
-    <link rel="stylesheet" href="src/styles/animations.css">
-    <link rel="stylesheet" href="src/styles/overlays.css">
-    <link rel="stylesheet" href="src/styles/analytics.css">
     <style>
         /* Simple debug styles */
         .debug-info {
@@ -45,10 +39,6 @@
     <!-- Particles background -->
     <div id="particles-js"></div>
     
-    <!-- Menu toggle button -->
-    <div class="sidebar-toggle">
-        <img src="assets/svgs/menu/Icon.svg" alt="Menu">
-    </div>
     
     <!-- Sliding sidebar menu -->
     <div class="sidebar">
@@ -67,25 +57,54 @@
             <div id="analytics-chart"></div>
         </div>
         
-        <!-- Overlays panel container -->
+        <!-- Enhanced structure for overlay panel -->
         <div id="overlays-panel" class="sidebar-panel">
-            <h3>Overlay Effects</h3>
-            <div id="overlay-selector"></div>
+            <div class="panel-header">
+            <h3 class="panel-title">Overlay Effects</h3>
+            </div>
+            
+            <div class="panel-section">
+            <h4 class="section-title">Categories</h4>
+            <div class="category-selector">
+                <div class="category-option active" data-category="all">All</div>
+                <div class="category-option" data-category="particles">Particles</div>
+                <div class="category-option" data-category="light">Light</div>
+                <div class="category-option" data-category="ambient">Ambient</div>
+            </div>
+            </div>
+            
+            <div class="panel-section">
+            <h4 class="section-title">Effects</h4>
+            <div id="overlay-selector" class="overlay-options-container">
+                <!-- Overlay options will be populated here -->
+            </div>
+            </div>
+            
+            <div class="panel-section">
+            <h4 class="section-title">Render Mode</h4>
+            <div class="render-mode-options">
+                <!-- Render mode options here -->
+            </div>
+            </div>
         </div>
     </div>
-    
     <!-- Main profile card -->
-    <div class="profile-card">
-        <div class="profile-picture"></div>
-        <h1 class="profile-name">Keirara(K3irara)</h1>
-        <h2 class="profile-title">Creative Developer</h2>
-        <h2 class="profile-subtitle">Digital Alchemist | Maomao Enthusiast</h2>
+    <div class="profile-card-structure profile-card-theme">
         
-        <div class="search-container">
+        <!-- Menu toggle button -->
+        <div class="sidebar-toggle-structure sidebar-toggle-theme">
+            <img id="icon" src="assets/svgs/menu/Icon.svg" alt="Menu">
+        </div>
+        <div class="profile-picture-structure profile-picture-theme"></div>
+        <h1 class="profile-name-structure profile-name-theme">Keirara(K3irara)</h1>
+        <h2 class="profile-title-structure profile-title-theme">Creative Developer</h2>
+        <h2 class="profile-subtitle-structure profile-subtitle-theme">Digital Alchemist | Maomao Enthusiast</h2>
+        
+        <div class="search-container-structure search-container-theme">
             <input type="text" id="search-box" placeholder="Type something magical... I DARE YOU!">
         </div>
         
-        <div class="social-grid">
+        <div class="social-grid-structure social-grid-theme">
             <!-- Social buttons will be inserted here via JS -->
         </div>
     </div>
@@ -98,6 +117,20 @@
     <!-- <script src="/src/main.ts" type="module"></script> -->
     
     <script src="src/main.ts" type="module"></script>
+
+    <script>
+        document.addEventListener("wheel", (event) => {
+            if (event.ctrlKey) {
+                event.preventDefault(); // Prevent zooming with Ctrl + scroll
+            }
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if ((event.ctrlKey || event.metaKey) && (event.key === "+" || event.key === "-")) {
+                event.preventDefault(); // Prevent zooming with Ctrl/Command + +/- keys
+            }
+        });
+    </script>
     <!-- <script src="/dist/main.js" type="module"></script> -->
 </body>
 </html>

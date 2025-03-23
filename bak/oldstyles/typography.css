@@ -1,0 +1,77 @@
+/* typography.css - All text styles */
+.profile-name-theme {
+    font-size: 2.25rem;
+    color: var(--color-pink);
+    text-shadow: 0 0 15px rgba(255, 154, 210, 0.4);
+}
+
+.profile-title-theme {
+    font-size: 1.5rem;
+    color: var(--color-turquoise);
+}
+
+.profile-subtitle-theme {
+    font-size: 1.25rem;
+    color: var(--color-gold);
+}
+
+.social-button-text-fallback {
+    font-size: 0.875rem;
+    font-weight: bold;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.analytics-title {
+    font-size: 1.5rem;
+    color: var(--color-pink);
+}
+
+.analytics-subtitle {
+    font-size: 1rem;
+    color: var(--color-gold);
+}
+
+.panel-title {
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+.category-tab {
+    font-size: 0.875rem;
+}
+
+.sidebar-item {
+    font-size: 1.125rem;
+}
+
+.mode-name {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+
+/*** Typography (add to typography.css) ***/
+.panel-title {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--color-pink);
+}
+
+.category-tab {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.effect-name {
+    font-size: 0.875rem;
+    color: var(--color-turquoise);
+}
+
+.mode-name {
+    font-size: 0.875rem;
+    color: var(--color-gold);
+}
+
+.no-effects-message {
+    color: rgba(255, 255, 255, 0.5);
+}

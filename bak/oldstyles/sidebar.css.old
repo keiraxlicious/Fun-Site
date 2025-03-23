@@ -1,0 +1,122 @@
+.sidebar-toggle-theme {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(255, 154, 210, 0.5);
+    transition: all 0.3s ease;
+}
+
+.sidebar-toggle-theme:hover {
+    transform: scale(1.1);
+    animation: spin 1s linear;
+    box-shadow: 0 0 15px var(--color-pink);
+}
+
+
+.sidebar-toggle-theme::after {
+    animation: spin .14s linear ;
+    /* Maintain visibility during spin */
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.sidebar-toggle-theme.spin {
+    animation: reverse-spin 1s linear;
+    /* Maintain visibility during spin */
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+.sidebar-toggle-theme img {
+    width: 75px;
+    height: 75px;
+    filter: invert(100%);
+    
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -350px; /* Start off-screen */
+    width: 350px;
+    height: 100vh;
+    background-color: rgba(10, 10, 30, 0.9);
+    backdrop-filter: blur(10px);
+    z-index: 90;
+    transition: right 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+    border-left: 2px solid var(--color-turquoise);
+    overflow-y: auto;
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar.active {
+    right: 0; /* When active, position at right edge */
+    transform: rotate(360deg);
+}
+
+.sidebar-content {
+    padding: 80px 30px 30px 30px;
+    margin-top: 50px;
+}
+
+.sidebar-item {
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 18px;
+    border-left: 3px solid transparent;
+}
+
+.sidebar-item:hover {
+    background-color: rgba(23, 216, 195, 0.2);
+    transform: translateX(5px);
+    border-left: 3px solid var(--color-pink);
+}
+
+.sidebar-panel {
+    display: none;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.sidebar-panel.active {
+    display: block;
+}
+
+@keyframes spin {
+    0% { 
+        transform: rotate(-45deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% { 
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes reverse-spin {
+    0% { 
+        transform: rotate(-45deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% { 
+        transform: rotate(360deg);
+    }
+}

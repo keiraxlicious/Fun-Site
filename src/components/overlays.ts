@@ -72,10 +72,26 @@ export const OVERLAY_OPTIONS: OverlayOption[] = [
       assetDirectory: "/assets/svgs/overlays/snow/",
       fallbackImage: "/assets/images/overlays/snow/"
     } as SnowAnimationOptions,
-    path: "/snow.html"
+    path: "/overlays/falling/snow.html"
   },
   
   // Add more overlay options as needed...
+  // {
+  //   id: "hearts",
+  //   name: "Flying Hearts",
+  //   particleType: "hearts",
+  //   category: ParticleCategory.FLOATING,
+  //   config: {
+  //     renderMode: "SVG" as AnimationRenderMode,
+  //     color: "#FFFFFF",
+  //     maxParticles: 100,
+  //     sizeRange: [2, 8],
+  //     fallSpeedRange: [1, 3],
+  //     assetDirectory: "/assets/svgs/overlays/hearts/",
+  //     fallbackImage: "/assets/images/overlays/hearts/"
+  //   } as HeartAnimationOptions,
+  //   path: "/overlays/floating/hearts.html"
+  // },
 ];
 
 // Track active engine

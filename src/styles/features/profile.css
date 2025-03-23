@@ -1,0 +1,84 @@
+/* Container for search and profile content */
+.search-container-theme {
+    width: 80%;
+    margin: 0 auto var(--spacing-xl);
+    position: relative;
+}
+
+/* Profile-specific styles */
+.profile-picture-theme {
+    position: relative;
+}
+
+/* Add a potion bubble effect to the profile picture */
+.profile-picture-theme::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at 30% 30%,
+        rgba(255, 255, 255, 0.9),
+        var(--color-turquoise-transparent)
+    );
+    opacity: 0.8;
+    animation: float 3s ease-in-out infinite alternate;
+}
+
+/* Add more bubbles */
+.profile-picture-theme::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: -15px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at 30% 30%,
+        rgba(255, 255, 255, 0.9),
+        var(--color-pink-transparent)
+    );
+    opacity: 0.6;
+    animation: float 4s ease-in-out 1s infinite alternate;
+}
+
+/* Add an apothecary-themed decorative element to the profile card */
+.profile-decorator {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M40,20 L60,20 L65,40 L60,60 Q50,70 40,60 L35,40 Z" fill="none" stroke="rgba(23, 216, 195, 0.3)" stroke-width="2"/><path d="M50,25 L50,55" stroke="rgba(23, 216, 195, 0.3)" stroke-width="2"/><path d="M40,40 L60,40" stroke="rgba(23, 216, 195, 0.3)" stroke-width="2"/></svg>');
+    background-repeat: no-repeat;
+    top: 20px;
+    left: 20px;
+    opacity: 0.5;
+    transform: rotate(-15deg);
+}
+
+/* Enhanced profile name with decorative elements */
+.profile-name-theme {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-name-theme::before,
+.profile-name-theme::after {
+    content: "✧";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-gold);
+    opacity: 0.7;
+}
+
+.profile-name-theme::before {
+    left: -30px;
+}
+
+.profile-name-theme::after {
+    right: -30px;
+}

@@ -1,0 +1,261 @@
+/* Structure CSS - Only handling dimensions and positioning */
+
+/* Base profile card structure with fixed positioning */
+.profile-card-structure {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: min(90%, 800px);
+    height: min(80vh, 800px);
+
+    padding: var(--spacing-xxl);
+    padding-top: var(--spacing-xxl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md);
+    box-sizing: border-box;
+    overflow-y: auto;
+    z-index: var(--z-content);
+}
+
+/* Sidebar toggle positioned at top-right corner of profile card */
+/* .sidebar-toggle-structure {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    width: var(--spacing-xl);
+    height: var(--spacing-xl);
+    cursor: pointer;
+    z-index: var(--z-controls);
+} */
+.sidebar-toggle-structure {
+    position: fixed;
+    top: var(--spacing-lg);
+    right: var(--spacing-lg);
+    z-index: calc(var(--z-sidebar) + 1);
+    background-color: var(--bg-element);
+    border: 1px solid var(--color-turquoise-transparent);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: url('/assets/normal.ani'), auto;
+    transition: var(--transition-medium);
+    box-shadow: var(--shadow-md);
+}
+
+/* Profile picture with consistent dimensions */
+.profile-picture-structure {
+    width: 150px;
+    height: 150px;
+    min-width: 120px;
+    min-height: 120px;
+    border-radius: var(--radius-circle); /* Ensures the picture is always circular */
+    overflow: hidden; /* Ensures the image or content inside doesn't overflow */
+}
+
+/* Search container with responsive width */
+.search-container-structure {
+    width: 80%;
+    max-width: 500px;
+    margin: var(--spacing-md) 0;
+}
+
+.search-container-structure input {
+    width: 100%;
+    height: auto;
+    padding: var(--spacing-sm);
+    box-sizing: border-box;
+}
+
+/* Social grid as a 3x3 grid */
+/* Grid container using calculated dimensions */
+.social-grid-structure {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--button-size)), 1fr));
+    gap: var(--button-gap);
+    width: 100%;
+    max-width: calc(3 * var(--button-size) + 2 * var(--button-gap));
+    margin: 1rem auto;
+    justify-content: center;
+}
+.social-button-theme > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Panel header styling */
+.panel-header {
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--color-turquoise-transparent);
+}
+
+.panel-title {
+    font-family: var(--font-decorative);
+    font-size: var(--font-size-xl);
+    color: var(--color-turquoise);
+    margin: 0;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+/* Panel sections */
+.panel-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.section-title {
+    font-size: var(--font-size-md);
+    color: var(--color-pink);
+    margin-bottom: var(--spacing-md);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* Enhanced overlay options */
+.overlay-options-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: var(--spacing-sm);
+}
+
+.overlay-option {
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--bg-element);
+    border-radius: 20px;
+    cursor: url('/assets/normal.ani'), auto;
+    transition: var(--transition-medium);
+    border: 1px solid transparent;
+    text-align: center;
+    font-size: var(--font-size-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+}
+
+.overlay-option:hover {
+    background-color: var(--color-pink-transparent);
+    border-color: var(--color-turquoise);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.overlay-option.active {
+    background-color: var(--color-turquoise-transparent);
+    border-color: var(--color-pink);
+    box-shadow: 0 0 10px var(--color-turquoise-transparent);
+}
+
+/* Category selector */
+.category-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+}
+
+.category-option {
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--bg-element);
+    border-radius: var(--radius-md);
+    cursor: url('/assets/normal.ani'), auto;
+    transition: var(--transition-medium);
+    border: 1px solid transparent;
+    font-size: var(--font-size-sm);
+}
+
+.category-option:hover {
+    background-color: var(--color-gold-transparent);
+}
+
+.category-option.active {
+    background-color: var(--color-gold-transparent);
+    border-color: var(--color-gold);
+    font-weight: 500;
+}
+
+/* Enhanced render mode options */
+.render-mode-options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.render-mode-option {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: rgba(255, 255, 255, 0.05);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: url('/assets/normal.ani'), auto;
+    text-align: left;
+    transition: var(--transition-fast);
+    font-size: var(--font-size-sm);
+}
+
+.render-mode-option:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    transform: translateX(3px);
+}
+
+.render-mode-option.active {
+    background-color: var(--color-blue-transparent);
+    border-left: 3px solid var(--color-blue);
+    box-shadow: 0 0 8px var(--color-blue-transparent);
+}
+/* Only add a small media query for very small screens */
+@media (max-height: 600px) {
+    .profile-card-structure {
+        padding: var(--spacing-lg);
+        gap: var(--spacing-sm);
+    }
+    
+    .profile-picture-structure {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .social-grid-structure {
+        gap: var(--spacing-sm);
+    }
+}
+/* Media queries for different device sizes */
+@media (max-width: 768px) {
+    .social-grid-structure {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: calc(2 * var(--button-size) + var(--button-gap));
+    }
+}
+
+@media (max-width: 480px) {
+    .social-grid-structure {
+        grid-template-columns: repeat(1, 1fr);
+        max-width: var(--button-size);
+    }
+    
+    :root {
+        --button-size: min(225px, 80vw);
+    }
+}
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 85vw;
+    }
+}

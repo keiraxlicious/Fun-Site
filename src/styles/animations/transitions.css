@@ -1,0 +1,117 @@
+/* Common transitions */
+.fade-transition {
+    transition: opacity 0.3s ease;
+}
+
+.scale-transition {
+    transition: transform 0.3s ease;
+}
+
+.color-transition {
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Content fade in */
+.content-transition {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Panel transitions */
+.sidebar-panel {
+    display: none;
+    padding: var(--spacing-lg);
+    margin-top: var(--spacing-lg);
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius-md);
+    transform: translateY(10px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.sidebar-panel.active {
+    display: block;
+    transform: translateY(0);
+    opacity: 1;
+    animation: fadeIn 0.3s ease forwards;
+}
+
+/* Floating character transitions */
+.floating-character {
+    position: absolute;
+    font-size: 24px;
+    pointer-events: none;
+    z-index: var(--z-controls);
+    text-shadow: 0 0 8px currentColor;
+    will-change: transform, opacity, left, top;
+    transition: none;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    -webkit-font-smoothing: antialiased;
+    font-variation-settings: 'wght' 400;
+    animation: 
+        characterGlow 2s ease-in-out infinite,
+        characterPulse 3s ease-in-out infinite;
+}
+
+/* High performance displays */
+@media screen and (min-resolution: 2dppx) {
+    .floating-character {
+        backface-visibility: hidden;
+        transform: translateZ(0);
+    }
+}
+
+/* Add potion swirl effect to buttons */
+.button-swirl-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.button-swirl-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: var(--transition-slow);
+}
+
+.button-swirl-effect:hover::before {
+    left: 100%;
+}
+/* Click feedback effects */
+.click-effect {
+    animation: clickBounce 0.5s ease forwards;
+}
+
+.click-bubble {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0.7;
+    animation: bubbling 1s ease-out forwards;
+}
+
+/* Focused input glow */
+#search-box.search-focus {
+    border-color: var(--color-pink);
+    box-shadow: 0 0 15px var(--color-turquoise-transparent), 0 0 20px var(--color-pink-transparent);
+    animation: inputPulse 2s infinite;
+}
+
+@keyframes inputPulse {
+    0%, 100% {
+        box-shadow: 0 0 10px var(--color-turquoise-transparent), 0 0 5px var(--color-pink-transparent);
+    }
+    50% {
+        box-shadow: 0 0 15px var(--color-turquoise-transparent), 0 0 20px var(--color-pink-transparent);
+    }
+}

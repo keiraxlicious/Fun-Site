@@ -1,0 +1,35 @@
+@import url('variables.css');
+@import url('typography.css');
+@import url('animations.css');
+@import url('structure.css');
+@import url('overlays.css');
+@import url('overlayPanel.css');
+
+/* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: #111;
+    color: white;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+#particles-js {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}

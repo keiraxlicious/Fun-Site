@@ -4,17 +4,20 @@ import { initializeSidebar } from "@/components/sidebar";
 import { initializeSocialButtons } from "@/components/socialButtons";
 import { initializeSearchBox } from "@/components/searchBox";
 import { initializeOverlays } from "@/components/overlays";
-import { initializeProfileCard } from "@/components/profileCard";
+import { initializeProfileCard, initializeInteractiveElements } from "@/components/profileCard";
 import { initializeOverlayPanel } from "@/components/overlayPanel";
 import { initializeParticles } from "@/utils/particles";
 import { NavigationService } from "@/services/navigationServices";
 import { AnalyticsService } from "@/services/analyticServices";
+import { preventZoom } from "@/configs/zoomConfig";
 
 /**
  * Main entry point for the application
  */
 document.addEventListener("DOMContentLoaded", () => {
   try {
+    // Prevent zooming
+    preventZoom();
     // Get the current page path
     const currentPath = window.location.pathname;
 
@@ -53,18 +56,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Initialize components with debugging
     console.log("Initializing sidebar...");
-    initializeSidebar(".sidebar-toggle", ".sidebar");
+    initializeSidebar(".sidebar-toggle-structure", ".sidebar");
 
     console.log("Initializing social buttons...");
-    initializeSocialButtons(".social-grid");
+    initializeSocialButtons(".social-grid-structure");
 
     console.log("Initializing search box...");
-    initializeSearchBox("search-box");
+    initializeSearchBox("search-box-structure");
 
     console.log("Initializing overlays...");
     initializeOverlays();
     console.log("Initializing Profile Card...");
-    initializeProfileCard();
+    initializeProfileCard('.profile-picture-structure');
+    console.log("Initializing Interactive elements...");
+    initializeInteractiveElements();
     console.log("Initializing Overlay Panels...");
     initializeOverlayPanel("overlays-panel");
 

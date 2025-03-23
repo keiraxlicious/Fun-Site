@@ -34,8 +34,12 @@ export function initializeSocialButtons(containerId: string): void {
 function createSocialButton(button: SocialButton): HTMLElement {
     // Create button container
     const buttonElement = document.createElement('div');
-    buttonElement.className = 'social-button';
+    buttonElement.className = 'social-button-structure social-button-theme bubble-effect potion-glow';
     buttonElement.id = button.id;
+
+    // Add the liquid-fill layer
+    const liquidFillElement = document.createElement('div');
+    liquidFillElement.className = 'liquid-fill';
     
     // Create button content with explicit link
     buttonElement.innerHTML = /*HTML*/`
@@ -73,5 +77,10 @@ function createSocialButton(button: SocialButton): HTMLElement {
         console.log(`Clicked on ${button.name} button`); // Debug logging
     });
     
+    // Append the liquid-fill element to the button
+    buttonElement.appendChild(liquidFillElement);
+
     return buttonElement;
 }
+
+

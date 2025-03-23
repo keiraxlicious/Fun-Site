@@ -1,0 +1,47 @@
+/* animations.css - All motion */
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-1rem); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes buttonPop {
+    0% { transform: scale(1); }
+    40% { transform: scale(0.9); }
+    80% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+@keyframes snowFall {
+    0% { transform: translateY(-1rem) rotate(0); }
+    100% { transform: translateY(110vh) rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(-45deg); }
+    100% { transform: rotate(315deg); }
+}
+
+.chart-bar {
+    animation: growBar 1.5s ease-out;
+}
+
+@keyframes growBar {
+    0% { height: 0; opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.profile-picture-theme {
+    animation: float 6s ease-in-out infinite;
+}
+
+
+/*** Animations (add to animations.css) ***/
+@keyframes panelSlideIn {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+.effect-option {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
